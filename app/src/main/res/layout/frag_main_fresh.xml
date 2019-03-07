@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_fresh"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_fresh"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <TextView
+        android:layout_marginTop="100dp"
+        android:text="Coming Soon..."
+        android:layout_gravity="center"
+        android:textSize="32sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="As start we will let you know :)"
+        android:layout_gravity="center"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

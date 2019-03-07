@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<android.support.v7.widget.RecyclerView
+    android:layout_marginStart="8dp"
+    android:id="@+id/rv_laundry"
+    android:layout_alignParentTop="true"
+    android:layout_marginBottom="1dp"
+    android:layout_above="@+id/btn_go_cart_laundry"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_go_cart_laundry"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:drawableLeft="@drawable/ic_pro_add_cart"
+        android:paddingStart="32dp"
+        android:paddingEnd="40dp"
+        android:text="Go To Cart"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

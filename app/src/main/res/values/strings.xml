@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Apartment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Welcome User</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="msg_token_fmt">MyToken</string>
+    <string name="apartment_services">Apartment Services</string>
+    <string name="action_exit">Exit</string>
+    <string name="my_cart">My Cart</string>
+    <string name="my_orders">My Orders</string>
+    <string name="daily_fresh">Daily Fresh</string>
+    <string name="car_wash">Car Wash</string>
+    <string name="my_laundry">My Laundry</string>
+    <string name="mineral_water">Mineral Water</string>
+    <string name="profile">Profile</string>
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="logout">Logout</string>
+    <string name="checkout">Checkout</string>
+    <string name="description">Description</string>
+    <string-array name="spinner_apartment_name">
+        <item>Select Apartment</item>
+        <item>Apartment A</item>
+        <item>Apartment B</item>
+        <item>Apartment C</item>
+    </string-array>
+    <string-array name="spinner_area_name">
+        <item>Select Area</item>
+        <item>Area A</item>
+        <item>Area B</item>
+        <item>Area C</item>
+    </string-array>
+</resources>
