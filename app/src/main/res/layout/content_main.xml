@@ -8,8 +8,6 @@
     tools:context=".activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-
-
     <FrameLayout
         android:id="@+id/container_main"
         android:layout_width="match_parent"

@@ -23,6 +23,7 @@ import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.MainCatModel;
 import com.myappartments.apartment.model.ModelCount;
+import com.myappartments.apartment.model.ModelDescription;
 import com.myappartments.apartment.model.ModelSubCat;
 import com.myappartments.apartment.utils.Constants;
 import com.myappartments.apartment.utils.CustomLog;
@@ -40,7 +41,8 @@ public class FragmentLaundry extends Fragment {
     private ModelCount tCount;
     private Context tCtx;
     private List<ModelSubCat> tModels;
-    private AdapterLaundry tAdapter;
+    private List<ModelDescription> tDescription;
+    private AdapterLaundry tAdapter, tAdapterDes;
     private FragmentManager tFragmentManager;
     @BindView(R.id.rv_laundry)
     protected RecyclerView tRecyclerView;

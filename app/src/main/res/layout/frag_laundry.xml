@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@color/light_grey"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 <android.support.v7.widget.RecyclerView
-    android:layout_marginStart="8dp"
+
     android:id="@+id/rv_laundry"
     android:layout_alignParentTop="true"
-    android:layout_marginBottom="1dp"
     android:layout_above="@+id/btn_go_cart_laundry"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="false"/>
     <Button
         android:id="@+id/btn_go_cart_laundry"
         android:textColor="@color/white"

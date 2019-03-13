@@ -2,6 +2,7 @@ package com.myappartments.apartment.api;
 
 import com.myappartments.apartment.model.MainCatModel;
 import com.myappartments.apartment.model.ModelBanner;
+import com.myappartments.apartment.model.ModelDescription;
 import com.myappartments.apartment.model.ModelSubCat;
 import com.myappartments.apartment.model.ModelToken;
 import com.myappartments.apartment.model.login.ModelLogin;
@@ -61,6 +62,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/aprt_sub_category.php")
     Call<List<ModelSubCat>> getSubCat(
+            @Field("main_category_id") String main_category_id
+    );
+    @FormUrlEncoded
+    @POST("api/aprt_description.php")
+    Call<List<ModelDescription>> getDescription(
             @Field("main_category_id") String main_category_id
     );
 }

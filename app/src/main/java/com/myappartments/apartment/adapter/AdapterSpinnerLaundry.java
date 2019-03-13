@@ -69,9 +69,9 @@ public class AdapterSpinnerLaundry extends ArrayAdapter<ModelSpinerLaundry> {
         isFormView = false;
 
 
-        if (position==2){
+        if (position==1){
             holder.mCheckBox.setChecked(true);
-            tArrList.get(1).setSelected(false);
+
         }
         if ((position == 0)) {
             holder.mCheckBox.setVisibility(View.INVISIBLE);
@@ -85,7 +85,7 @@ public class AdapterSpinnerLaundry extends ArrayAdapter<ModelSpinerLaundry> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int getPosition = (Integer) buttonView.getTag();
 
-                tAdapterLaundry = new AdapterLaundry(tCtx, isFormView);
+//                tAdapterLaundry = new AdapterLaundry(tCtx, isFormView);
                 if (!isFormView) {
                     tArrList.get(position).setSelected(isChecked);
 

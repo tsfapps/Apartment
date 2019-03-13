@@ -55,7 +55,7 @@
     <ImageView
         android:id="@+id/ivDetailsRupee"
         android:layout_marginTop="14dp"
-        android:src="@drawable/rupee"
+        android:src="@drawable/ic_rupee"
         android:layout_marginStart="2dp"
         android:layout_toRightOf="@+id/tv_details_price_label"
         android:layout_below="@+id/tv_details_name"
