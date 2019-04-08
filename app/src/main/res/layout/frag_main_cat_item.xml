@@ -3,169 +3,44 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
+    android:layout_height="150dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:background="@color/light_grey"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingLeft="16dp">
-    <LinearLayout
-        android:background="@color/colorPrimary"
-        android:padding="1dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        >
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        app:cardCornerRadius="10dp"
-        android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:adjustViewBounds="true"
-        android:id="@+id/iv_main_category_mw"
-        android:scaleType="fitXY"
-        android:src="@drawable/main_cat_fresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/tv_main_category_mw"
-        android:layout_width="120dp"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@id/iv_main_category_mw"
-        android:layout_alignTop="@id/iv_main_category_mw"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="Car Wash"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-</RelativeLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
-<LinearLayout
-android:background="@color/colorPrimary"
-android:padding="1dp"
-android:layout_width="match_parent"
-android:layout_weight="1"
-android:layout_height="0dp"
-android:layout_marginBottom="8dp"
     >
     <android.support.v7.widget.CardView
+        app:cardBackgroundColor="@color/white"
         android:layout_width="match_parent"
-        app:cardCornerRadius="10dp"
+        app:cardElevation="@dimen/margin_top"
+        app:cardCornerRadius="8dp"
         android:layout_height="match_parent">
-<RelativeLayout
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-
-        android:id="@+id/iv_main_category_ml"
+        android:layout_margin="20dp"
+        android:adjustViewBounds="true"
+        android:id="@+id/iv_main_category"
         android:scaleType="fitXY"
         android:src="@drawable/main_cat_fresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        <TextView
-            android:layout_alignRight="@id/iv_main_category_ml"
-            android:layout_alignTop="@id/iv_main_category_ml"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:id="@+id/tv_main_category_ml"
-            android:text="Car Wash"
-            android:textSize="12sp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_width="120dp"
-            android:layout_height="30dp"/>
-</RelativeLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
-    <LinearLayout
-        android:background="@color/colorPrimary"
-        android:padding="1dp"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        >
-    <android.support.v7.widget.CardView
-
-        android:layout_width="match_parent"
-        app:cardCornerRadius="10dp"
-        android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-
-        android:id="@+id/iv_main_category_cw"
-        android:scaleType="fitXY"
-        android:src="@drawable/main_cat_fresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="0dp" />
     <TextView
-        android:id="@+id/tv_main_category_cw"
-        android:layout_width="120dp"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@id/iv_main_category_cw"
-        android:layout_alignTop="@id/iv_main_category_cw"
-        android:layout_marginTop="8dp"
+        android:id="@+id/tv_main_category"
+        android:layout_width="match_parent"
+        android:layout_weight=".25"
+        android:layout_height="0dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:text="Car Wash"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
-</RelativeLayout>
-    </android.support.v7.widget.CardView>
-    </LinearLayout>
-    <LinearLayout
-        android:background="@color/colorPrimary"
-        android:padding="1dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        >
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="10dp"
-        >
-<RelativeLayout
-    android:id="@+id/rl_mf"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-
-        android:id="@+id/iv_main_category_mf"
-        android:scaleType="fitXY"
-        android:src="@drawable/main_cat_fresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        <TextView
-            android:layout_alignRight="@id/iv_main_category_mf"
-            android:layout_alignTop="@id/iv_main_category_mf"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:id="@+id/tv_main_category_mf"
-            android:text="Car Wash"
-            android:textSize="16sp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_width="120dp"
-            android:layout_height="30dp"/>
-</RelativeLayout>
-    </android.support.v7.widget.CardView>
-    </LinearLayout>
-
 </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+

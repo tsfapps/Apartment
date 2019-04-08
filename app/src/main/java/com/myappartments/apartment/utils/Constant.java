@@ -1,7 +1,10 @@
 package com.myappartments.apartment.utils;
 
-public class Constants {
+public class Constant {
+    public static final int xOffSet = 0 ;
+    public static final int yOffSet =50 ;
     public static final String TAG = "tsfapps";
+    public static final String APP_URL = "app_url";
     public static final String TSF_SHARED_PREFENCE = "apartment_shared_pref";
    public static final String ID = "int_id";
    public static final  String USER_ID = "user_id";
@@ -16,9 +19,9 @@ public class Constants {
    public static  final  String USER_STATE="user_state";
     public static  final  String USER_PIN_NO="user_pin_no";
     public static  final  String EMPTY="";
-
-
-
-
-
+    public static final  String SOON="This service will start soon...";
+    public static   final  String SERVICE_NOT="Service Not Available.";
+    public static final int SHOW_PROGRESS_DIALOG = 1001;
+    public static final int HIDE_PROGRESS_DIALOG = 1002;
+    public static final long HIDE_PROGRESS_DIALOG_DELAY = 500;
 }

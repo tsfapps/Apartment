@@ -1,12 +1,14 @@
 package com.myappartments.apartment.api;
 
 import com.myappartments.apartment.model.MainCatModel;
+import com.myappartments.apartment.model.ModelSmartApp;
 import com.myappartments.apartment.model.ModelBanner;
 import com.myappartments.apartment.model.ModelDescription;
+import com.myappartments.apartment.model.ModelSmartBanner;
+import com.myappartments.apartment.model.ModelSmartSubBanner;
 import com.myappartments.apartment.model.ModelSubCat;
 import com.myappartments.apartment.model.ModelToken;
 import com.myappartments.apartment.model.login.ModelLogin;
-import com.myappartments.apartment.model.login.User;
 import com.myappartments.apartment.model.register.ModelRegistration;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/aprt_login.php")
     Call<ModelLogin> userLogin(
-            @Field("user_email") String user_email,
+            @Field("user_phone_no") String user_phone_no,
             @Field("user_password") String user_password
     );
  @FormUrlEncoded
@@ -69,4 +71,17 @@ public interface Api {
     Call<List<ModelDescription>> getDescription(
             @Field("main_category_id") String main_category_id
     );
+    @POST("api/aprt_smartapp.php")
+    Call<List<ModelSmartApp>> getSmartApp(
+    );
+
+    @POST("api/aprt_smart_banner.php")
+    Call<List<ModelSmartBanner>> getSmartAppBanner(
+    );
+
+    @POST("api/aprt_smart_subbanner.php")
+    Call<List<ModelSmartSubBanner>> getSmartSubBanner(
+    );
+
+
 }

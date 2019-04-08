@@ -1,7 +1,10 @@
 package com.myappartments.apartment.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
@@ -30,8 +33,9 @@ import com.myappartments.apartment.fragment.FragmentProfile;
 import com.myappartments.apartment.fragment.FragmentSubCat;
 import com.myappartments.apartment.model.ModelToken;
 import com.myappartments.apartment.storage.SharedPrefApart;
-import com.myappartments.apartment.utils.Constants;
+import com.myappartments.apartment.utils.Constant;
 import com.myappartments.apartment.utils.CustomLog;
+import com.myappartments.apartment.utils.CustomToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +56,10 @@ public class MainActivity extends AppCompatActivity
    protected DrawerLayout drawer;
    @BindView(R.id.nav_view)
    protected NavigationView navigationView;
-
+    private ProgressDialog mDialog;
+    public UIThreadHandler uiThreadHandler = null;
    private SharedPrefApart tSharedPrefApart;
+    private ProgressDialog tDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +78,21 @@ public class MainActivity extends AppCompatActivity
         TextView tvNavHeader = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header);
         tvNavHeader.setText(tSharedPrefApart.getUserFlat());
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentMainCat()).commit();
+        uiThreadHandler = new UIThreadHandler();
 
+initMain();
     }
-    public void setTextToolbar(String strTextToolbar){
+
+
+    public void setTextToolbar(String strTextToolbar) {
         tvToolbar.setText(strTextToolbar);
+    }
+    private void initMain(){
+
+        tDialog = new ProgressDialog(this);
+        tDialog.setMessage("Loading...");
+        tDialog.show();
+
     }
 
     private void initFireBase(){
@@ -85,7 +102,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                            Log.w(Constants.TAG, "getInstanceId failed", task.getException());
+                            Log.w(Constant.TAG, "getInstanceId failed", task.getException());
                             return;
                         }
                         String userId = tSharedPrefApart.getUserId();
@@ -97,12 +114,12 @@ public class MainActivity extends AppCompatActivity
                             @Override
                             public void onResponse(Call<ModelToken> call, Response<ModelToken> response) {
                                 ModelToken tModelToken = response.body();
-                                CustomLog.d(Constants.TAG, "Responding : "+tModelToken.getMessage());
+                                CustomLog.d(Constant.TAG, "Responding : "+tModelToken.getMessage());
+                                tDialog.cancel();
                             }
-
                             @Override
                             public void onFailure(Call<ModelToken> call, Throwable t) {
-                                CustomLog.d(Constants.TAG, "Not Responding"+t);
+                                CustomLog.d(Constant.TAG, "Not Responding"+t);
 
                             }
                         });
@@ -121,27 +138,27 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_exit) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_exit) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -155,15 +172,21 @@ public class MainActivity extends AppCompatActivity
            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentProfile()).addToBackStack(null).commit();
 
         } else if (id == R.id.nav_water) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("1")).addToBackStack(null).commit();
+           // getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("1")).addToBackStack(null).commit();
+            CustomToast.tToast(this, "Service will start soon...");
         } else if (id == R.id.nav_laundry) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentLaundry()).addToBackStack(null).commit();
         } else if (id == R.id.nav_car) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("3")).addToBackStack(null).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("3")).addToBackStack(null).commit();
+            CustomToast.tToast(this, "Service will start soon...");
+
         } else if (id == R.id.nav_fresh) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("4")).addToBackStack(null).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("4")).addToBackStack(null).commit();
+            CustomToast.tToast(this, "Service will start soon...");
+
         }else if (id == R.id.nav_orders) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentOrder()).addToBackStack(null).commit();
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
@@ -177,4 +200,33 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    public class UIThreadHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case Constant.SHOW_PROGRESS_DIALOG:
+                    showProgressDialog();
+                    break;
+                case Constant.HIDE_PROGRESS_DIALOG:
+                    hideProgressDialog();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+    private void hideProgressDialog() {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+    }
+
+    private void showProgressDialog() {
+        mDialog = new ProgressDialog(this);
+        mDialog.setMessage("Loading....");
+        mDialog.show();
+    }
+
 }

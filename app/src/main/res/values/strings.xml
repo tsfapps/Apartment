@@ -33,4 +33,9 @@
         <item>Area B</item>
         <item>Area C</item>
     </string-array>
+    <string-array name="spinner_pin">
+        <item>--select pin code--</item>
+        <item>560068</item>
+        <item>560035</item>
+    </string-array>
 </resources>

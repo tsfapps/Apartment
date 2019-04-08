@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,15 +17,12 @@ import android.widget.Button;
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.activity.MainActivity;
 import com.myappartments.apartment.adapter.AdapterLaundry;
-import com.myappartments.apartment.adapter.AdapterMainCat;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
-import com.myappartments.apartment.model.MainCatModel;
 import com.myappartments.apartment.model.ModelCount;
 import com.myappartments.apartment.model.ModelDescription;
 import com.myappartments.apartment.model.ModelSubCat;
-import com.myappartments.apartment.utils.Constants;
-import com.myappartments.apartment.utils.CustomLog;
+import com.myappartments.apartment.utils.Constant;
 
 import java.util.List;
 
@@ -38,6 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentLaundry extends Fragment {
+    private MainActivity tActivity;
     private ModelCount tCount;
     private Context tCtx;
     private List<ModelSubCat> tModels;
@@ -48,6 +45,7 @@ public class FragmentLaundry extends Fragment {
     protected RecyclerView tRecyclerView;
     @BindView(R.id.btn_go_cart_laundry)
     protected Button btnGoCart;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,15 +66,33 @@ public class FragmentLaundry extends Fragment {
         tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCart()).addToBackStack(null).commit();
     }
     private void setTitle(){
-        MainActivity tActivity = (MainActivity) getActivity();
+        tActivity  = (MainActivity) getActivity();
         if (tActivity != null){
             tActivity.setTextToolbar("My Laundry");
         }
-        new CallApiAsyncTask(tActivity).execute();
+       // new CallApiAsyncTask(tActivity).execute();
+        callApiLaundry();
     }
-//    private void callApiLaundry(){
-//
-//    }
+    private void callApiLaundry(){
+        tActivity.uiThreadHandler.sendEmptyMessage(Constant.SHOW_PROGRESS_DIALOG);
+        Api api = ApiClient.getApiClients().create(Api.class);
+        Call<List<ModelSubCat>> call = api.getSubCat("2");
+        call.enqueue(new Callback<List<ModelSubCat>>() {
+            @Override
+            public void onResponse(Call<List<ModelSubCat>> call, Response<List<ModelSubCat>> response) {
+                tModels = response.body();
+                tAdapter = new AdapterLaundry(tCtx, tModels, tFragmentManager, tCount);
+                tRecyclerView.setAdapter(tAdapter);
+                tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
+
+            }
+            @Override
+            public void onFailure(Call<List<ModelSubCat>> call, Throwable t) {
+                tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
+
+            }
+        });
+    }
 
     private class CallApiAsyncTask extends AsyncTask<Void, Void, Void> {
         private MainActivity tActivity;
@@ -88,34 +104,19 @@ public class FragmentLaundry extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-          //  tDialog.show();
-        }
+                  }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Api api = ApiClient.getApiClients().create(Api.class);
-            Call<List<ModelSubCat>> call = api.getSubCat("2");
-            call.enqueue(new Callback<List<ModelSubCat>>() {
-                @Override
-                public void onResponse(Call<List<ModelSubCat>> call, Response<List<ModelSubCat>> response) {
-                    tModels = response.body();
-                    tAdapter = new AdapterLaundry(tCtx, tModels, tFragmentManager, tCount);
-                    tRecyclerView.setAdapter(tAdapter);
 
-                }
-
-                @Override
-                public void onFailure(Call<List<ModelSubCat>> call, Throwable t) {
-
-                }
-            });
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-           // tDialog.cancel();
+
+            // tDialog.cancel();
         }
     }
 }

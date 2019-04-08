@@ -3,9 +3,10 @@
     android:background="@color/light_grey"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp">
 <android.support.v7.widget.RecyclerView
-
     android:id="@+id/rv_laundry"
     android:layout_alignParentTop="true"
     android:layout_above="@+id/btn_go_cart_laundry"
@@ -25,5 +26,6 @@
         android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content" />
 </RelativeLayout>

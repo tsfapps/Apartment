@@ -22,7 +22,7 @@ import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.ModelBanner;
 import com.myappartments.apartment.model.ModelSubCat;
-import com.myappartments.apartment.utils.Constants;
+import com.myappartments.apartment.utils.Constant;
 import com.myappartments.apartment.utils.CustomLog;
 
 import java.util.List;
@@ -106,12 +106,12 @@ public class FragmentSubCat extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<ModelSubCat>> call, Throwable t) {
-                    CustomLog.e(Constants.TAG, "Sub Category not Responding ... ");
+                    CustomLog.e(Constant.TAG, "Sub Category not Responding ... ");
 
                 }
             });
         } catch (Exception e) {
-            CustomLog.e(Constants.TAG, "Sub Category not Responding ... "+e);
+            CustomLog.e(Constant.TAG, "Sub Category not Responding ... "+e);
         }
 
     }
@@ -126,7 +126,7 @@ public class FragmentSubCat extends Fragment {
                 PagerAdapter tAdapter = new AdapterBanner(getActivity(), tModes);
                 vpWater.setAdapter(tAdapter);
 
-                CustomLog.d(Constants.TAG, "Responding : "+ tModes.get(0).getMainCategoryId());
+                CustomLog.d(Constant.TAG, "Responding : "+ tModes.get(0).getMainCategoryId());
             }
 
             @Override

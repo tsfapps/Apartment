@@ -12,10 +12,8 @@ import com.myappartments.apartment.R;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.login.ModelLogin;
-import com.myappartments.apartment.model.login.User;
 import com.myappartments.apartment.storage.SharedPrefApart;
-import com.myappartments.apartment.utils.Constants;
-import com.myappartments.apartment.utils.InitActivity;
+import com.myappartments.apartment.utils.Constant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,10 +25,9 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-  //  private InitActivity tInitActivity;
     private SharedPrefApart tSharedPrefApart;
-    @BindView(R.id.et_login_flatNo)
-    protected EditText etLoginFlatNo;
+    @BindView(R.id.et_login_phone_no)
+    protected EditText etLoginPhoneNo;
     @BindView(R.id.et_login_pass)
     protected EditText etLoginPass;
 
@@ -54,10 +51,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initApi(){
-        String strFlat = etLoginFlatNo.getText().toString().trim();
+        String strPhone = etLoginPhoneNo.getText().toString().trim();
         String strPass = etLoginPass.getText().toString().trim();
-        if (strFlat.equals("")){
-            etLoginFlatNo.setError("Enter the flat number");
+        if (strPhone.equals("") || strPhone.length()<10){
+            etLoginPhoneNo.setError("Enter correct phone number");
         }
         else
         if (strPass.equals("")){
@@ -66,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         else {
             try {
                 Api api = ApiClient.getApiClients().create(Api.class);
-                Call<ModelLogin> call = api.userLogin(strFlat, strPass);
+                Call<ModelLogin> call = api.userLogin(strPhone, strPass);
                 call.enqueue(new Callback<ModelLogin>() {
                     @Override
                     public void onResponse(Call<ModelLogin> call, Response<ModelLogin> response) {
@@ -88,8 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                                     strEmail, strAdhar, strApartment, strArea,
                                     strCity, strState, strPinCode);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-
                         }
                         else {
                             Toast.makeText(getApplicationContext(), modelLogin.getMessage(), Toast.LENGTH_LONG).show();
@@ -97,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(Call<ModelLogin> call, Throwable t) {
-                        Log.d(Constants.TAG, "Not Responding : " + t);
+                        Log.d(Constant.TAG, "Not Responding : " + t);
                     }
                 });
             } catch (Exception e) {
@@ -105,6 +100,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }
