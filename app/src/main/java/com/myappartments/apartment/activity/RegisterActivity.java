@@ -146,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                  public void onFailure(Call<ModelRegistration> call, Throwable t) {
 
                      CustomLog.e(Constant.TAG, "Not Responding : "+t);
-                     Toast.makeText(getApplicationContext(), "Not Responding : "+t,Toast.LENGTH_LONG).show();
+                     Toast.makeText(getApplicationContext(), "Registration Not Responding : "+t,Toast.LENGTH_LONG).show();
 
                  }
              });

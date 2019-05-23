@@ -6,20 +6,20 @@ import android.content.SharedPreferences.Editor;
 
 import com.myappartments.apartment.utils.Constant;
 
-public class SharedPrefApart {
-    private static SharedPrefApart mInstance;
+public class SharedPrefManager {
+    private static SharedPrefManager mInstance;
     private Context tContext;
 
     private Editor tEditor;
 
 
-    public SharedPrefApart(Context tContext) {
+    public SharedPrefManager(Context tContext) {
         this.tContext = tContext;
     }
 
-    public static synchronized SharedPrefApart getInstance(Context tCtx){
+    public static synchronized SharedPrefManager getInstance(Context tCtx){
         if (mInstance == null){
-            mInstance = new SharedPrefApart(tCtx);
+            mInstance = new SharedPrefManager(tCtx);
 
         }
         return mInstance;

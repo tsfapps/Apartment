@@ -44,7 +44,7 @@ public class AdapterMainCat extends RecyclerView.Adapter<AdapterMainCat.MainCatV
 
     @Override
     public void onBindViewHolder(final MainCatViewHolder holder, final int position) {
-        MainCatModel tModel = tModels.get(position);
+        final MainCatModel tModel = tModels.get(position);
         holder.tvMainCat.setText(tModel.getCatName());
         Glide.with(tContext).load(tModel.getImg()).into(holder.ivMainCat);
         holder.ivMainCat.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +53,7 @@ public class AdapterMainCat extends RecyclerView.Adapter<AdapterMainCat.MainCatV
 
                 switch (position) {
                     case 0:
-                    tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentLaundry()).addToBackStack(null).commit();
+                    tFragmentManager.beginTransaction().replace(R.id.container_main, FragmentLaundry.newInstance(tModel.getId().toString())).addToBackStack(null).commit();
                     break;
                     case 5:
                     tFragmentManager.beginTransaction().replace(R.id.container_main, new FragSmartApp()).addToBackStack(null).commit();

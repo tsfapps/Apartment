@@ -12,7 +12,7 @@ import com.myappartments.apartment.R;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.login.ModelLogin;
-import com.myappartments.apartment.storage.SharedPrefApart;
+import com.myappartments.apartment.storage.SharedPrefManager;
 import com.myappartments.apartment.utils.Constant;
 
 import butterknife.BindView;
@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private SharedPrefApart tSharedPrefApart;
+    private SharedPrefManager tSharedPrefManager;
     @BindView(R.id.et_login_phone_no)
     protected EditText etLoginPhoneNo;
     @BindView(R.id.et_login_pass)
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
       //  tInitActivity = new InitActivity(this);
-        tSharedPrefApart = new SharedPrefApart(this);
+        tSharedPrefManager = new SharedPrefManager(this);
     }
     @OnClick(R.id.btn_login_submit)
     public void onSubmitLogin(View view){
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                             String strCity = modelLogin.getUser().getUserCity();
                             String strState = modelLogin.getUser().getUserState();
                             String strPinCode = modelLogin.getUser().getUserPincode();
-                            tSharedPrefApart.setUserData(intId, strUserId, strName, strFlat, strPhone,
+                            tSharedPrefManager.setUserData(intId, strUserId, strName, strFlat, strPhone,
                                     strEmail, strAdhar, strApartment, strArea,
                                     strCity, strState, strPinCode);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));

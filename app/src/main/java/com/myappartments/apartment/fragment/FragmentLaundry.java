@@ -22,6 +22,7 @@ import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.ModelCount;
 import com.myappartments.apartment.model.ModelDescription;
 import com.myappartments.apartment.model.ModelSubCat;
+import com.myappartments.apartment.storage.SharedPrefManager;
 import com.myappartments.apartment.utils.Constant;
 
 import java.util.List;
@@ -36,7 +37,7 @@ import retrofit2.Response;
 public class FragmentLaundry extends Fragment {
     private MainActivity tActivity;
     private ModelCount tCount;
-    private Context tCtx;
+    private Context tContex;
     private List<ModelSubCat> tModels;
     private List<ModelDescription> tDescription;
     private AdapterLaundry tAdapter, tAdapterDes;
@@ -45,18 +46,26 @@ public class FragmentLaundry extends Fragment {
     protected RecyclerView tRecyclerView;
     @BindView(R.id.btn_go_cart_laundry)
     protected Button btnGoCart;
+    private SharedPrefManager tSharedPrefManager;
+
+
+    private String strMainCatId;
+
+    public static FragmentLaundry newInstance(String strMainCatId) {
+
+        FragmentLaundry fragment = new FragmentLaundry();
+        fragment.strMainCatId = strMainCatId;
+        return fragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_laundry, container, false);
         ButterKnife.bind(this, view);
-        tCtx = getContext();
-        tFragmentManager = getFragmentManager();
-        RecyclerView.LayoutManager tLayoutManger = new LinearLayoutManager(tCtx);
-        tRecyclerView.setLayoutManager(tLayoutManger);
+
        // callApiLaundry();
-        setTitle();
+        initFrag();
         return view;
     }
 
@@ -65,23 +74,30 @@ public class FragmentLaundry extends Fragment {
 
         tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCart()).addToBackStack(null).commit();
     }
-    private void setTitle(){
+    private void initFrag(){
+        tContex = getContext();
+        tFragmentManager = getFragmentManager();
+        RecyclerView.LayoutManager tLayoutManger = new LinearLayoutManager(tContex);
+        tRecyclerView.setLayoutManager(tLayoutManger);
+        tSharedPrefManager = new SharedPrefManager(tContex);
         tActivity  = (MainActivity) getActivity();
         if (tActivity != null){
             tActivity.setTextToolbar("My Laundry");
         }
        // new CallApiAsyncTask(tActivity).execute();
         callApiLaundry();
+
     }
     private void callApiLaundry(){
         tActivity.uiThreadHandler.sendEmptyMessage(Constant.SHOW_PROGRESS_DIALOG);
+        final String strUserId = tSharedPrefManager.getUserId();
         Api api = ApiClient.getApiClients().create(Api.class);
         Call<List<ModelSubCat>> call = api.getSubCat("2");
         call.enqueue(new Callback<List<ModelSubCat>>() {
             @Override
             public void onResponse(Call<List<ModelSubCat>> call, Response<List<ModelSubCat>> response) {
                 tModels = response.body();
-                tAdapter = new AdapterLaundry(tCtx, tModels, tFragmentManager, tCount);
+                tAdapter = new AdapterLaundry(tContex, tModels, tFragmentManager, tCount, strMainCatId, strUserId);
                 tRecyclerView.setAdapter(tAdapter);
                 tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
 

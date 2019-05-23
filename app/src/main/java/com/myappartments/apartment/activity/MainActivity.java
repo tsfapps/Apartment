@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -30,9 +29,8 @@ import com.myappartments.apartment.fragment.FragmentLaundry;
 import com.myappartments.apartment.fragment.FragmentMainCat;
 import com.myappartments.apartment.fragment.FragmentOrder;
 import com.myappartments.apartment.fragment.FragmentProfile;
-import com.myappartments.apartment.fragment.FragmentSubCat;
 import com.myappartments.apartment.model.ModelToken;
-import com.myappartments.apartment.storage.SharedPrefApart;
+import com.myappartments.apartment.storage.SharedPrefManager;
 import com.myappartments.apartment.utils.Constant;
 import com.myappartments.apartment.utils.CustomLog;
 import com.myappartments.apartment.utils.CustomToast;
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity
    protected NavigationView navigationView;
     private ProgressDialog mDialog;
     public UIThreadHandler uiThreadHandler = null;
-   private SharedPrefApart tSharedPrefApart;
+   private SharedPrefManager tSharedPrefManager;
     private ProgressDialog tDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -74,12 +71,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         initFireBase();
 
-        tSharedPrefApart = new SharedPrefApart(this);
+        tSharedPrefManager = new SharedPrefManager(this);
         TextView tvNavHeader = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header);
-        tvNavHeader.setText(tSharedPrefApart.getUserFlat());
+        tvNavHeader.setText(tSharedPrefManager.getUserFlat());
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentMainCat()).commit();
         uiThreadHandler = new UIThreadHandler();
-
 initMain();
     }
 
@@ -105,7 +101,7 @@ initMain();
                             Log.w(Constant.TAG, "getInstanceId failed", task.getException());
                             return;
                         }
-                        String userId = tSharedPrefApart.getUserId();
+                        String userId = tSharedPrefManager.getUserId();
                         String token = task.getResult().getToken();
 
                         Api api = ApiClient.getApiClients().create(Api.class);
@@ -191,7 +187,7 @@ initMain();
 
         } else if (id == R.id.nav_logout) {
 
-            SharedPrefApart.getInstance(getApplicationContext()).clearUserData();
+            SharedPrefManager.getInstance(getApplicationContext()).clearUserData();
             Intent intent = new Intent(getApplicationContext(),SplashActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

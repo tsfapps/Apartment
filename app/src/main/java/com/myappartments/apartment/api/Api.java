@@ -1,6 +1,7 @@
 package com.myappartments.apartment.api;
 
 import com.myappartments.apartment.model.MainCatModel;
+import com.myappartments.apartment.model.cart.ModelCartAdd;
 import com.myappartments.apartment.model.ModelSmartApp;
 import com.myappartments.apartment.model.ModelBanner;
 import com.myappartments.apartment.model.ModelDescription;
@@ -8,6 +9,7 @@ import com.myappartments.apartment.model.ModelSmartBanner;
 import com.myappartments.apartment.model.ModelSmartSubBanner;
 import com.myappartments.apartment.model.ModelSubCat;
 import com.myappartments.apartment.model.ModelToken;
+import com.myappartments.apartment.model.cart.ModelCartView;
 import com.myappartments.apartment.model.login.ModelLogin;
 import com.myappartments.apartment.model.register.ModelRegistration;
 
@@ -81,6 +83,20 @@ public interface Api {
 
     @POST("api/aprt_smart_subbanner.php")
     Call<List<ModelSmartSubBanner>> getSmartSubBanner(
+    );
+    @FormUrlEncoded
+    @POST("api/aprt_cart.php")
+    Call<ModelCartAdd> cartAdd(
+
+            @Field("user_id") String user_id,
+            @Field("main_cat_id") String main_cat_id,
+            @Field("sub_cat_id") String sub_cat_id,
+            @Field("cart_price") String cart_price,
+            @Field("cart_quantity") String cart_quantity
+    ); @FormUrlEncoded
+    @POST("api/aprt_cart_view.php")
+    Call<List<ModelCartView>> cartView(
+            @Field("user_id") String user_id
     );
 
 

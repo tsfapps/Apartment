@@ -25,6 +25,39 @@
         <item name="android:paddingStart">12dp</item>
 
     </style>
+    <style name="et_item_count">
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:hint">0</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/et_bg</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxLength">3</item>
+        <item name="android:inputType">number</item>
+
+    </style>
+    <style name="tv_item_label">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:hint">Enter quantity</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">8dp</item>
+
+
+
+    </style>
+    <style name="tv_item_price">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:hint">₹ 0</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+
+
+    </style>
     <style name="spinner_main">
         <item name="android:layout_marginTop">@dimen/margin_top</item>
         <item name="android:background">@android:drawable/btn_dropdown</item>

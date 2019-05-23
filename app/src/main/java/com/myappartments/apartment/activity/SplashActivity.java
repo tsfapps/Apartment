@@ -6,18 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.myappartments.apartment.R;
-import com.myappartments.apartment.storage.SharedPrefApart;
-import com.myappartments.apartment.utils.InitActivity;
+import com.myappartments.apartment.storage.SharedPrefManager;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private SharedPrefApart tPref;
+    private SharedPrefManager tPref;
    // private InitActivity tInitActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        tPref = new SharedPrefApart(getApplicationContext());
+        tPref = new SharedPrefManager(getApplicationContext());
       //  tInitActivity = new InitActivity(getApplicationContext());
         initSplash();
     }
@@ -39,6 +38,4 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 2000);
     }
-
-
 }

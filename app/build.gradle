@@ -6,8 +6,8 @@ android {
         applicationId "com.myappartments.apartment"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -48,5 +48,8 @@ dependencies {
     implementation 'com.daimajia.slider:library:1.1.5@aar'
     implementation 'com.squareup.okhttp:okhttp:2.4.0'
     implementation 'com.squareup.okhttp:okhttp-urlconnection:1.6.0'
-}
+    implementation('com.paytm:pgplussdk:1.3.3') {
+        transitive = true
+    }
+    }
 apply plugin: 'com.google.gms.google-services'

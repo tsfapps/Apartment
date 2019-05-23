@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.activity.MainActivity;
-import com.myappartments.apartment.storage.SharedPrefApart;
+import com.myappartments.apartment.storage.SharedPrefManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +34,7 @@ public class FragmentProfile extends Fragment {
     protected TextView tvProApartment;
 @BindView(R.id.tv_profile_address)
     protected TextView tvProAddress;
-private SharedPrefApart tPref;
+private SharedPrefManager tPref;
 private MainActivity tActivity;
 
     @Nullable
@@ -43,7 +43,7 @@ private MainActivity tActivity;
         View view = inflater.inflate(R.layout.frag_profile, container, false);
         ButterKnife.bind(this, view);
         setTitle();
-        tPref = new SharedPrefApart(getContext());
+        tPref = new SharedPrefManager(getContext());
         setProfileData();
         return view;
     }
