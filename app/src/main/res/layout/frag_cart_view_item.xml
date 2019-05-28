@@ -22,8 +22,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                tools:ignore="NestedWeights">
+                android:layout_height="60dp">
                 <android.support.v7.widget.CardView
                     android:layout_margin="4dp"
                     android:layout_width="50dp"
@@ -38,65 +37,31 @@
                     android:layout_height="match_parent" />
                 </android.support.v7.widget.CardView>
                 <TextView
+                    android:id="@+id/tv_cart_name"
                     android:gravity="center_vertical"
                     android:layout_weight="1.5"
                     android:minLines="2"
                     android:textColor="@color/black"
-                    android:paddingStart="8dp"
                     android:layout_marginBottom="4dp"
-                   android:layout_toEndOf="@+id/iv_laundry"
                     android:text="Product Name"
                     android:textStyle="bold"
                     android:textSize="12sp"
-                    android:id="@+id/tv_laundry_name"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     tools:ignore="SmallSp" />
 
-                <RelativeLayout
-                    android:orientation="vertical"
-                android:layout_weight=".6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
                     <Button
-                        android:layout_alignParentTop="true"
-                        android:id="@+id/btn_add_to_cart"
-                        android:background="@color/red"
-                        android:text="Add"
+                        android:layout_weight=".6"
+                        android:layout_width="0dp"
+                        android:layout_gravity="top"
+                        android:id="@+id/btn_remove_from_cart"
+                        android:background="@drawable/bg_transparent"
+                        android:text="Remove"
                         android:textSize="12sp"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:layout_width="match_parent"
+                        android:textColor="@color/black"
                         android:textAllCaps="false"
-                        android:layout_height="30dp" />
-                    <Button
-                        android:visibility="gone"
-                        android:layout_alignParentTop="true"
-                        android:id="@+id/btn_go_to_cart"
-                        android:background="@color/colorPrimary"
-                        android:text="Go to cart"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:layout_width="match_parent"
-                        android:textAllCaps="false"
-                        android:layout_height="30dp" />
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:paddingEnd="3dp"
-                    android:paddingStart="2dp"
-                    android:layout_alignParentBottom="true"
-                    android:drawableEnd="@drawable/ic_details"
-                    android:id="@+id/tv_laundry_details"
-                    android:layout_width="match_parent"
-                    android:text="Details"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="serif"
-                    android:textColor="@color/blue"
-                    android:textSize="12sp"
-                    tools:ignore="SmallSp" />
-                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="4dp"
@@ -115,12 +80,11 @@
                         android:hint="Steam Press"
                         style="@style/tv_item_price"/>
                     <TextView
-                        android:id="@+id/tv_laundry_price"
+                        android:id="@+id/tv_cart_price_press"
                         style="@style/tv_item_price"
                         />
 
                     <TextView
-                        android:id="@+id/tv_laundry_press_total"
                         style="@style/tv_item_label" />
                 <LinearLayout
                     android:gravity="center"
@@ -128,12 +92,19 @@
                     android:id="@+id/ll_btn_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/et_total_item_laundry_press"
-                        android:text="1"
+                    <Button
+                        android:id="@+id/btn_remove_press_cart"
+                        android:background="@drawable/ic_remove"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp" />
+                    <TextView
+                        android:id="@+id/tv_count_item_press_cart"
                         style="@style/et_item_count"/>
-
+                    <Button
+                        android:id="@+id/btn_add_press_cart"
+                        android:background="@drawable/ic_add"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"/>
                 </LinearLayout>
 
 
@@ -149,7 +120,7 @@
                         android:hint="Wash"
                         style="@style/tv_item_price" />
                     <TextView
-                        android:id="@+id/tv_laundry_price_wash"
+                        android:id="@+id/tv_cart_price_wash"
                         style="@style/tv_item_price" />
 
 
@@ -164,17 +135,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <Button
-                        android:visibility="gone"
-                        android:id="@+id/btn_remove_laundry_wash"
+                        android:id="@+id/btn_remove_wash_cart"
                         android:background="@drawable/ic_remove"
                         android:layout_width="22dp"
                         android:layout_height="22dp" />
-                    <EditText
-                        android:id="@+id/et_total_item_laundry_wash"
+                    <TextView
+                        android:id="@+id/tv_count_item_wash_cart"
                         style="@style/et_item_count"/>
                     <Button
-                        android:visibility="gone"
-                        android:id="@+id/btn_add_laundry_wash"
+                        android:id="@+id/btn_add_wash_cart"
                         android:background="@drawable/ic_add"
                         android:layout_width="22dp"
                         android:layout_height="22dp"/>
@@ -193,66 +162,56 @@
                         android:hint="Dry Clean"
                         style="@style/tv_item_price" />
                     <TextView
-                        android:id="@+id/tv_laundry_price_dry"
+                        android:id="@+id/tv_price_dry_cart"
                         style="@style/tv_item_price"
                          />
-
                     <TextView
-                        android:id="@+id/tv_laundry_dry_total"
+                        android:id="@+id/tv_dry_total_cart"
                        style="@style/tv_item_label" />
                 <LinearLayout
                     android:gravity="center"
-                    android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
-                    android:id="@+id/ll_btn_details_dry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <Button
-                        android:visibility="gone"
-                        android:id="@+id/btn_remove_laundry_dry"
+                        android:id="@+id/btn_remove_dry_cart"
                         android:background="@drawable/ic_remove"
                         android:layout_width="22dp"
                         android:layout_height="22dp" />
-                    <EditText
-                        android:id="@+id/et_total_item_laundry_dry"
+                    <TextView
+                        android:id="@+id/tv_count_item_dry_cart"
                         style="@style/et_item_count"/>
                     <Button
-                        android:visibility="gone"
-                        android:id="@+id/btn_add_laundry_dry"
+                        android:id="@+id/btn_add_dry_cart"
                         android:background="@drawable/ic_add"
                         android:layout_width="22dp"
                         android:layout_height="22dp"/>
                 </LinearLayout>
             </LinearLayout>
-                <!--<LinearLayout-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:gravity="center"-->
-                    <!--android:layout_height="match_parent">-->
-                    <!--<TextView-->
-                        <!--android:text="Total Price"-->
-                        <!--style="@style/tv_item_price"  />-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/tv_laundry_total_price"-->
-                        <!--style="@style/tv_item_price"  />-->
-                    <!--<TextView-->
-                        <!--android:text="Total Quantity"-->
-                        <!--style="@style/tv_item_label" />-->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:text="Total Price"
+                        style="@style/tv_item_price"  />
+                    <TextView
+                        android:id="@+id/tv_total_price_cart"
+                        style="@style/tv_item_price"  />
+                    <TextView
+                        android:text="Total Quantity"
+                        style="@style/tv_item_label" />
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/tv_total_item_get"-->
-                        <!--android:hint="0"-->
-                        <!--style="@style/et_item_count"/>-->
+                    <TextView
+                        android:id="@+id/tv_count_item_total_cart"
+                        android:hint="0"
+                        style="@style/et_item_count"/>
 
-                <!--</LinearLayout>-->
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-<View
-    android:background="@color/light_grey"
-    android:layout_width="1dp"
-    android:layout_height="match_parent"/>
-
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

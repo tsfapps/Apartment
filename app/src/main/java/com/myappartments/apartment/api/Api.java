@@ -87,12 +87,14 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/aprt_cart.php")
     Call<ModelCartAdd> cartAdd(
-
             @Field("user_id") String user_id,
-            @Field("main_cat_id") String main_cat_id,
-            @Field("sub_cat_id") String sub_cat_id,
-            @Field("cart_price") String cart_price,
-            @Field("cart_quantity") String cart_quantity
+            @Field("prod_id") String prod_id,
+            @Field("press_quantity") String press_quantity,
+            @Field("press_price") String press_price,
+            @Field("wash_quantity") String wash_quantity,
+            @Field("wash_price") String wash_price,
+            @Field("dry_quantity") String dry_quantity,
+            @Field("dry_price") String dry_price
     ); @FormUrlEncoded
     @POST("api/aprt_cart_view.php")
     Call<List<ModelCartView>> cartView(

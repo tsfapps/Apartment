@@ -11,21 +11,42 @@ public class ModelCartView {
     @SerializedName("user_id")
     @Expose
     private String userId;
-    @SerializedName("cart_price")
+    @SerializedName("prod_id")
     @Expose
-    private String cartPrice;
-    @SerializedName("cart_quantity")
+    private String prodId;
+    @SerializedName("press_quantity")
     @Expose
-    private String cartQuantity;
-    @SerializedName("cart_date")
+    private String pressQuantity;
+    @SerializedName("press_price")
     @Expose
-    private String cartDate;
-    @SerializedName("name")
+    private String pressPrice;
+    @SerializedName("wash_quantity")
     @Expose
-    private String name;
-    @SerializedName("category_name")
+    private String washQuantity;
+    @SerializedName("wash_price")
     @Expose
-    private String categoryName;
+    private String washPrice;
+    @SerializedName("dry_quantity")
+    @Expose
+    private String dryQuantity;
+    @SerializedName("dry_price")
+    @Expose
+    private String dryPrice;
+    @SerializedName("total_quantity")
+    @Expose
+    private String totalQuantity;
+    @SerializedName("total_price")
+    @Expose
+    private String totalPrice;
+    @SerializedName("date")
+    @Expose
+    private String date;
+    @SerializedName("time")
+    @Expose
+    private String time;
+    @SerializedName("status")
+    @Expose
+    private String status;
 
     public String getId() {
         return id;
@@ -43,44 +64,99 @@ public class ModelCartView {
         this.userId = userId;
     }
 
-    public String getCartPrice() {
-        return cartPrice;
+    public String getProdId() {
+        return prodId;
     }
 
-    public void setCartPrice(String cartPrice) {
-        this.cartPrice = cartPrice;
+    public void setProdId(String prodId) {
+        this.prodId = prodId;
     }
 
-    public String getCartQuantity() {
-        return cartQuantity;
+    public String getPressQuantity() {
+        return pressQuantity;
     }
 
-    public void setCartQuantity(String cartQuantity) {
-        this.cartQuantity = cartQuantity;
+    public void setPressQuantity(String pressQuantity) {
+        this.pressQuantity = pressQuantity;
     }
 
-    public String getCartDate() {
-        return cartDate;
+    public String getPressPrice() {
+        return pressPrice;
     }
 
-    public void setCartDate(String cartDate) {
-        this.cartDate = cartDate;
+    public void setPressPrice(String pressPrice) {
+        this.pressPrice = pressPrice;
     }
 
-    public String getName() {
-        return name;
+    public String getWashQuantity() {
+        return washQuantity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWashQuantity(String washQuantity) {
+        this.washQuantity = washQuantity;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getWashPrice() {
+        return washPrice;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setWashPrice(String washPrice) {
+        this.washPrice = washPrice;
     }
 
+    public String getDryQuantity() {
+        return dryQuantity;
+    }
+
+    public void setDryQuantity(String dryQuantity) {
+        this.dryQuantity = dryQuantity;
+    }
+
+    public String getDryPrice() {
+        return dryPrice;
+    }
+
+    public void setDryPrice(String dryPrice) {
+        this.dryPrice = dryPrice;
+    }
+
+    public String getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(String totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
