@@ -1,10 +1,8 @@
 package com.myappartments.apartment.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,58 +12,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.myappartments.apartment.R;
-import com.myappartments.apartment.api.Api;
-import com.myappartments.apartment.api.ApiClient;
-import com.myappartments.apartment.fragment.FragmentCart;
 import com.myappartments.apartment.model.ModelCount;
 import com.myappartments.apartment.model.ModelDescription;
 import com.myappartments.apartment.model.ModelSubCat;
-import com.myappartments.apartment.model.cart.ModelCartAdd;
-import com.myappartments.apartment.utils.Constant;
-import com.myappartments.apartment.utils.CustomLog;
 import com.myappartments.apartment.utils.CustomToast;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AdapterLaundryCartAdd extends RecyclerView.Adapter<AdapterLaundryCartAdd.LaundryHolder> {
     private ModelCount tCount;
-    private int countSmallPress = 0;
-    private int countMediumPress = 0;
-    private int countLargePress = 0;
-    private int countExtraPress = 0;
-    private int totalPressSmall;
-    private int totalPressMedium;
-    private int totalPressLarge;
-    private int totalPressExtra;
-    private int grandTotalSmall;
-    private int grandTotal = 0;
-    private int grandTotalMedium = 0;
-    private int grandTotalLarge = 0;
-    private int grandTotalExtra = 0;
-    private int countMediumWash = 0;
-    private int countLargeWash = 0;
-    private int countExtraWash = 0;
-    private int totalWashMedium;
-    private int totalWashLarge;
-    private int totalWashExtra;
-    private int countMediumDry = 0;
-    private int countLargeDry = 0;
-    private int countExtraDry = 0;
-    private int totalDryMedium;
-    private int totalDryLarge;
-    private int totalDryExtra;
-    private int countTotalPrice;
-    private int countTotalQuantity;
-
-
     private Context tContext;
     private List<ModelSubCat> tModels;
     private List<ModelDescription> tDescriptions;

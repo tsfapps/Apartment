@@ -94,7 +94,7 @@
     </ScrollView>
     <LinearLayout
         android:padding="4dp"
-        android:background="@drawable/et_bg"
+        android:background="@drawable/bg_et"
         android:layout_margin="8dp"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/rl_detail_banner"

@@ -14,7 +14,6 @@ import com.myappartments.apartment.R;
 import com.myappartments.apartment.fragment.FragSmartApp;
 import com.myappartments.apartment.fragment.FragmentLaundry;
 import com.myappartments.apartment.model.MainCatModel;
-import com.myappartments.apartment.utils.Constant;
 import com.myappartments.apartment.utils.CustomToast;
 
 import java.util.List;
@@ -59,7 +58,7 @@ public class AdapterMainCat extends RecyclerView.Adapter<AdapterMainCat.MainCatV
                     tFragmentManager.beginTransaction().replace(R.id.container_main, new FragSmartApp()).addToBackStack(null).commit();
                     break;
                     default:
-                        CustomToast.tToast(tContext, "Service will start soon...");
+                        CustomToast.tToastTop(tContext, "Service will start soon...");
                 }
             }
         });

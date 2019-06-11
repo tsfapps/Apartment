@@ -1,13 +1,15 @@
-package com.myappartments.apartment.model.cart;
+package com.myappartments.apartment.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ModelCartView {
-
+public class ModelOrderList {
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("order_id")
+    @Expose
+    private String orderId;
     @SerializedName("prod_id")
     @Expose
     private String prodId;
@@ -47,9 +49,6 @@ public class ModelCartView {
     @SerializedName("date")
     @Expose
     private String date;
-    @SerializedName("time")
-    @Expose
-    private String time;
     @SerializedName("status")
     @Expose
     private String status;
@@ -69,6 +68,14 @@ public class ModelCartView {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getProdId() {
@@ -175,14 +182,6 @@ public class ModelCartView {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -214,5 +213,4 @@ public class ModelCartView {
     public void setPriceDryCleaning(String priceDryCleaning) {
         this.priceDryCleaning = priceDryCleaning;
     }
-
 }

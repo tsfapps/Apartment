@@ -1,5 +1,6 @@
 package com.myappartments.apartment.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.ModelBanner;
 import com.myappartments.apartment.model.ModelSubCat;
+import com.myappartments.apartment.storage.SharedPrefManager;
 import com.myappartments.apartment.utils.Constant;
 import com.myappartments.apartment.utils.CustomLog;
 
@@ -37,6 +39,8 @@ import retrofit2.Response;
 
 public class FragmentSubCat extends Fragment {
 
+    private SharedPrefManager tSharedPrefManager;
+    private Context tContext;
     private int currentPage = 0;
     private Timer tTimer;
     private long DELAY_MS = 1500;
@@ -74,6 +78,8 @@ public class FragmentSubCat extends Fragment {
     }
 
     private void setTitle(){
+        tContext = getContext();
+        tSharedPrefManager = new SharedPrefManager(tContext);
         MainActivity tActivity = (MainActivity) getActivity();
         if (tActivity != null){
             switch (mainCatId){
@@ -94,8 +100,9 @@ public class FragmentSubCat extends Fragment {
     }
     private void callApiSubCat(){
         try {
+            String strUserId = tSharedPrefManager.getUserId();
             Api api = ApiClient.getApiClients().create(Api.class);
-            Call<List<ModelSubCat>> call = api.getSubCat(mainCatId);
+            Call<List<ModelSubCat>> call = api.getSubCat(mainCatId, strUserId);
             call.enqueue(new Callback<List<ModelSubCat>>() {
                 @Override
                 public void onResponse(Call<List<ModelSubCat>> call, Response<List<ModelSubCat>> response) {

@@ -32,6 +32,9 @@ public class ModelSubCat {
     @SerializedName("price_dry_cleaning")
     @Expose
     private String priceDryCleaning;
+    @SerializedName("status")
+    @Expose
+    private String status;
 
     public String getCatId() {
         return catId;
@@ -103,5 +106,13 @@ public class ModelSubCat {
 
     public void setPriceDryCleaning(String priceDryCleaning) {
         this.priceDryCleaning = priceDryCleaning;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

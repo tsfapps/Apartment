@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_cart"
-        android:layout_above="@+id/btn_cartViewCheckout"
+        android:id="@+id/rv_cartCheckout"
+        android:layout_above="@+id/btn_cartCheckoutPayment"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 <Button
-    android:id="@+id/btn_cartViewCheckout"
+    android:id="@+id/btn_cartCheckoutPayment"
     android:background="@color/colorPrimary"
     android:textAllCaps="false"
     android:textColor="@color/white"
     android:textSize="16dp"
     android:textStyle="bold"
     android:layout_alignParentBottom="true"
-    android:text="@string/checkout"
+    android:text="@string/proceed_to_pay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 </RelativeLayout>

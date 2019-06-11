@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
-import com.myappartments.apartment.fragment.FragmentCart;
+import com.myappartments.apartment.fragment.FragmentCartView;
 import com.myappartments.apartment.model.cart.ModelCartAdd;
 import com.myappartments.apartment.model.ModelCount;
 import com.myappartments.apartment.model.ModelDescription;
@@ -26,6 +26,7 @@ import com.myappartments.apartment.model.ModelSubCat;
 import com.myappartments.apartment.utils.Constant;
 import com.myappartments.apartment.utils.CustomLog;
 import com.myappartments.apartment.utils.CustomToast;
+import com.myappartments.apartment.utils.DisableView;
 
 import java.util.List;
 
@@ -90,8 +91,20 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
     public void onBindViewHolder(@NonNull final LaundryHolder laundryHolder, final int i) {
         tToast = new CustomToast(tContext);
         final ModelSubCat tModel = tModels.get(i);
-        laundryHolder.btn_add_to_cart.setVisibility(View.VISIBLE);
-        laundryHolder.btn_go_to_cart.setVisibility(View.GONE);
+
+        if (tModel.getStatus() != null){
+            laundryHolder.btn_add_to_cart.setVisibility(View.GONE);
+            laundryHolder.btn_go_to_cart.setVisibility(View.VISIBLE);
+            DisableView.disableEditText(laundryHolder.et_count_laundry_press);
+            DisableView.disableEditText(laundryHolder.et_count_laundry_wash);
+            DisableView.disableEditText(laundryHolder.et_count_laundry_dry);
+
+        }
+        else {
+            laundryHolder.btn_add_to_cart.setVisibility(View.VISIBLE);
+            laundryHolder.btn_go_to_cart.setVisibility(View.GONE);
+
+        }
         laundryHolder.tvDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,11 +132,15 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
         laundryHolder.tvLaundryDryPrice.setText("₹ "+strPriceDry);
 
         final int getPresPrice = Integer.valueOf(strPricePress);
-        if (strPriceWash.equals("NA"))
-            strPriceWash="0";
+        if (strPriceWash.equals("NA")) {
+            strPriceWash = "0";
+            DisableView.disableEditText(laundryHolder.et_count_laundry_wash);
+        }
         final int getWashPrice = Integer.parseInt(strPriceWash);
-        if (strPriceDry.equals("NA"))
-            strPriceDry="0";
+        if (strPriceDry.equals("NA")) {
+            strPriceDry = "0";
+            DisableView.disableEditText(laundryHolder.et_count_laundry_dry);
+        }
         final int getDryPrice = Integer.parseInt(strPriceDry);
         Glide.with(tContext).load(tModel.getCategoryImage()).into(laundryHolder.ivLaundry);
 
@@ -134,13 +151,13 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
             public void onClick(View v) {
                 final String prod_id = tModels.get(i).getCatId();
 
-                String countPress = laundryHolder.et_total_item_laundry_press.getText().toString().trim();
-                String countWash = laundryHolder.et_total_item_laundry_wash.getText().toString().trim();
-                String countDry = laundryHolder.et_total_item_laundry_dry.getText().toString().trim();
+                String countPress = laundryHolder.et_count_laundry_press.getText().toString().trim();
+                String countWash = laundryHolder.et_count_laundry_wash.getText().toString().trim();
+                String countDry = laundryHolder.et_count_laundry_dry.getText().toString().trim();
 
                 if (countPress.equals("")) countPress = "1";
-                if (countWash.equals("")) countWash = "0";
-                if (countDry.equals("")) countDry = "0";
+                if (countWash.equals("")||countWash.equals("Na")) countWash = "0";
+                if (countDry.equals("")||countDry.equals("Na")) countDry = "0";
 
                 int pressQuantity = Integer.parseInt(countPress);
                 int washQuantity = Integer.parseInt(countWash);
@@ -155,18 +172,20 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
                     Api api = ApiClient.getApiClients().create(Api.class);
                     Call<ModelCartAdd> cartCall = api.cartAdd(strUserId, prod_id, countPress, pressPrice, countWash,
                             washPrice, countDry, dryPrice);
-                    CustomLog.d(Constant.TAG, "Credential : " + "User : " + strUserId
-                            + "Prod Id : " + prod_id + "Press Quantity : " + countPress);
+
                     cartCall.enqueue(new Callback<ModelCartAdd>() {
                         @Override
                         public void onResponse(Call<ModelCartAdd> call, Response<ModelCartAdd> response) {
                             ModelCartAdd tModel = response.body();
                             if (!tModel.getError()) {
-                                CustomToast.tToast(tContext, tModel.getMessage());
+                                CustomToast.tToastTop(tContext, tModel.getMessage());
                                 laundryHolder.btn_add_to_cart.setVisibility(View.GONE);
                                 laundryHolder.btn_go_to_cart.setVisibility(View.VISIBLE);
+                                DisableView.disableEditText(laundryHolder.et_count_laundry_press);
+                                DisableView.disableEditText(laundryHolder.et_count_laundry_wash);
+                                DisableView.disableEditText(laundryHolder.et_count_laundry_dry);
                             } else {
-                                CustomToast.tToast(tContext, tModel.getMessage());
+                                CustomToast.tToastTop(tContext, tModel.getMessage());
                             }
                         }
 
@@ -181,7 +200,7 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
         laundryHolder.btn_go_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCart()).addToBackStack(null).commit();
+                tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCartView()).addToBackStack(null).commit();
             }
         });
 
@@ -200,12 +219,12 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
         TextView tvLaundryName;
         @BindView(R.id.tv_laundry_price)
         TextView tvLaundryPressPrice;
-        @BindView(R.id.et_total_item_laundry_press)
-            EditText et_total_item_laundry_press;
-        @BindView(R.id.et_total_item_laundry_wash)
-            EditText et_total_item_laundry_wash;
-        @BindView(R.id.et_total_item_laundry_dry)
-            EditText et_total_item_laundry_dry;
+        @BindView(R.id.et_count_laundry_press)
+            EditText et_count_laundry_press;
+        @BindView(R.id.et_count_laundry_wash)
+            EditText et_count_laundry_wash;
+        @BindView(R.id.et_count_laundry_dry)
+            EditText et_count_laundry_dry;
         @BindView(R.id.tv_laundry_details)
         TextView tvDescription;
         @BindView(R.id.tv_laundry_price_wash)
@@ -218,16 +237,10 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
         TextView tvLaundryTotalWash;
         @BindView(R.id.tv_laundry_dry_total)
         TextView tvLaundryTotalDry;
-//        @BindView(R.id.tv_total_item_get)
-//        TextView tv_total_item_get;
-//        @BindView(R.id.tv_laundry_total_price)
-//        TextView tv_laundry_total_price;
         @BindView(R.id.btn_add_to_cart)
         Button btn_add_to_cart;
         @BindView(R.id.btn_go_to_cart)
         Button btn_go_to_cart;
-//        @BindView(R.id.btn_get_total)
-//        Button btn_get_total;
         LaundryHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

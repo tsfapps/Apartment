@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -22,14 +23,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.fragment.FragmentLaundry;
 import com.myappartments.apartment.fragment.FragmentMainCat;
-import com.myappartments.apartment.fragment.FragmentOrder;
+import com.myappartments.apartment.fragment.FragmentOrderList;
 import com.myappartments.apartment.fragment.FragmentProfile;
+import com.myappartments.apartment.fragment.FragmentWallet;
 import com.myappartments.apartment.model.ModelToken;
+import com.myappartments.apartment.model.ModelWallet;
+import com.myappartments.apartment.presenter.WalletPresenter;
 import com.myappartments.apartment.storage.SharedPrefManager;
 import com.myappartments.apartment.utils.Constant;
 import com.myappartments.apartment.utils.CustomLog;
@@ -37,19 +42,23 @@ import com.myappartments.apartment.utils.CustomToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    public static final String MIXPANEL_TOKEN = "8e610bc0e5968777aca284dc17bf8350";
+    MixpanelAPI mixpanel;
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.container_main)
     protected FrameLayout containerMain;
    @BindView(R.id.tvToolbar)
    protected TextView tvToolbar;
+   @BindView(R.id.tvToolbarWallet)
+   protected TextView tvToolbarWallet;
    @BindView(R.id.drawer_layout)
    protected DrawerLayout drawer;
    @BindView(R.id.nav_view)
@@ -58,11 +67,14 @@ public class MainActivity extends AppCompatActivity
     public UIThreadHandler uiThreadHandler = null;
    private SharedPrefManager tSharedPrefManager;
     private ProgressDialog tDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mixpanel = MixpanelAPI.getInstance(getApplicationContext(), MIXPANEL_TOKEN);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -72,23 +84,61 @@ public class MainActivity extends AppCompatActivity
         initFireBase();
 
         tSharedPrefManager = new SharedPrefManager(this);
+        callApiWallet();
+
         TextView tvNavHeader = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header);
         tvNavHeader.setText(tSharedPrefManager.getUserFlat());
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentMainCat()).commit();
         uiThreadHandler = new UIThreadHandler();
-initMain();
+        initMain();
     }
 
 
+    @OnClick(R.id.tvToolbarWallet)
+    public void onWalletClick(View view){
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentWallet()).addToBackStack(null).commit();
+
+    }
     public void setTextToolbar(String strTextToolbar) {
         tvToolbar.setText(strTextToolbar);
     }
     private void initMain(){
-
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w(Constant.TAG, "getInstanceId failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new Instance ID token
+//                        String token = task.getResult().getToken();
+//
+//                        // Log and toast
+//                       // String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(Constant.TAG, "TOKEN : "+ token);
+////                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
         tDialog = new ProgressDialog(this);
         tDialog.setMessage("Loading...");
         tDialog.show();
 
+    }
+
+    private void callApiWallet(){
+        String strUserId = tSharedPrefManager.getUserId();
+        WalletPresenter.callApiWallet(strUserId, MainActivity.this);
+    }
+
+    public void onResponseApiWallet(Response<ModelWallet> response){
+        ModelWallet tModel = response.body();
+        tvToolbarWallet.setText(tModel.getWallet());
+    }
+    public void onFailureApiWallet(Call<ModelWallet> call){
+
+        CustomLog.d(Constant.TAG, "Wallet Not Responding: "+call);
     }
 
     private void initFireBase(){
@@ -169,19 +219,19 @@ initMain();
 
         } else if (id == R.id.nav_water) {
            // getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("1")).addToBackStack(null).commit();
-            CustomToast.tToast(this, "Service will start soon...");
+            CustomToast.tToastTop(this, "Service will start soon...");
         } else if (id == R.id.nav_laundry) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentLaundry()).addToBackStack(null).commit();
         } else if (id == R.id.nav_car) {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("3")).addToBackStack(null).commit();
-            CustomToast.tToast(this, "Service will start soon...");
+            CustomToast.tToastTop(this, "Service will start soon...");
 
         } else if (id == R.id.nav_fresh) {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("4")).addToBackStack(null).commit();
-            CustomToast.tToast(this, "Service will start soon...");
+            CustomToast.tToastTop(this, "Service will start soon...");
 
         }else if (id == R.id.nav_orders) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentOrder()).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentOrderList()).addToBackStack(null).commit();
 
         } else if (id == R.id.nav_share) {
 
@@ -224,5 +274,9 @@ initMain();
         mDialog.setMessage("Loading....");
         mDialog.show();
     }
-
+    @Override
+    protected void onDestroy() {
+        mixpanel.flush();
+        super.onDestroy();
+    }
 }

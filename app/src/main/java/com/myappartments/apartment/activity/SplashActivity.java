@@ -10,13 +10,13 @@ import com.myappartments.apartment.storage.SharedPrefManager;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private SharedPrefManager tPref;
+    private SharedPrefManager tSharedPrefManager;
    // private InitActivity tInitActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        tPref = new SharedPrefManager(getApplicationContext());
+        tSharedPrefManager = new SharedPrefManager(getApplicationContext());
       //tInitActivity = new InitActivity(getApplicationContext());
         initSplash();
     }
@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (tPref.getUserId().equalsIgnoreCase("")) {
+                if (tSharedPrefManager.getUserId().equalsIgnoreCase("")) {
                  startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                   finish();
                 }else {

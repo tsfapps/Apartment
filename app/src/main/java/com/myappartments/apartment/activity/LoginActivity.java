@@ -12,6 +12,7 @@ import com.myappartments.apartment.R;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.login.ModelLogin;
+import com.myappartments.apartment.presenter.LoginPresenter;
 import com.myappartments.apartment.storage.SharedPrefManager;
 import com.myappartments.apartment.utils.Constant;
 
@@ -61,43 +62,46 @@ public class LoginActivity extends AppCompatActivity {
             etLoginPass.setError("Enter the password");
         }
         else {
-            try {
-                Api api = ApiClient.getApiClients().create(Api.class);
-                Call<ModelLogin> call = api.userLogin(strPhone, strPass);
-                call.enqueue(new Callback<ModelLogin>() {
-                    @Override
-                    public void onResponse(Call<ModelLogin> call, Response<ModelLogin> response) {
-                        ModelLogin modelLogin = response.body();
-                        if (!modelLogin.getError()) {
-                            int intId = modelLogin.getUser().getId();
-                            String strUserId = modelLogin.getUser().getUserId();
-                            String strName = modelLogin.getUser().getUserName();
-                            String strFlat = modelLogin.getUser().getUserFlatNo();
-                            String strPhone = modelLogin.getUser().getUserPhoneNo();
-                            String strEmail = modelLogin.getUser().getUserEmail();
-                            String strAdhar = modelLogin.getUser().getUserAdharNo();
-                            String strApartment = modelLogin.getUser().getUserAprtName();
-                            String strArea = modelLogin.getUser().getUserArea();
-                            String strCity = modelLogin.getUser().getUserCity();
-                            String strState = modelLogin.getUser().getUserState();
-                            String strPinCode = modelLogin.getUser().getUserPincode();
-                            tSharedPrefManager.setUserData(intId, strUserId, strName, strFlat, strPhone,
-                                    strEmail, strAdhar, strApartment, strArea,
-                                    strCity, strState, strPinCode);
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), modelLogin.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ModelLogin> call, Throwable t) {
-                        Log.d(Constant.TAG, "Not Responding : " + t);
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            LoginPresenter.calApiLogin(strPhone, strPass, getApplicationContext());
+
+//            try {
+//                Api api = ApiClient.getApiClients().create(Api.class);
+//                Call<ModelLogin> call = api.userLogin(strPhone, strPass);
+//                call.enqueue(new Callback<ModelLogin>() {
+//                    @Override
+//                    public void onResponse(Call<ModelLogin> call, Response<ModelLogin> response) {
+//                        ModelLogin modelLogin = response.body();
+//                        if (!modelLogin.getError()) {
+////                            int intId = modelLogin.getUser().getId();
+////                            String strWallet = modelLogin.getUser().getWallet();
+//                            String strUserId = modelLogin.getUser().getUserId();
+//                            String strName = modelLogin.getUser().getUserName();
+//                            String strFlat = modelLogin.getUser().getUserFlatNo();
+//                            String strPhone = modelLogin.getUser().getUserPhoneNo();
+//                            String strEmail = modelLogin.getUser().getUserEmail();
+//                            String strAdhar = modelLogin.getUser().getUserAdharNo();
+//                            String strApartment = modelLogin.getUser().getUserAprtName();
+//                            String strArea = modelLogin.getUser().getUserArea();
+//                            String strCity = modelLogin.getUser().getUserCity();
+//                            String strState = modelLogin.getUser().getUserState();
+//                            String strPinCode = modelLogin.getUser().getUserPincode();
+//                            tSharedPrefManager.setUserData(strUserId, strName, strFlat, strPhone,
+//                                    strEmail, strAdhar, strApartment, strArea,
+//                                    strCity, strState, strPinCode);
+//                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        }
+//                        else {
+//                            Toast.makeText(getApplicationContext(), modelLogin.getMessage(), Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(Call<ModelLogin> call, Throwable t) {
+//                        Log.d(Constant.TAG, "Not Responding : " + t);
+//                    }
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
     }
 }

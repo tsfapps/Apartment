@@ -6,9 +6,10 @@ import com.orm.SugarRecord;
 
 public class User {
 
+
     @SerializedName("id")
     @Expose
-    private int id;
+    private String id;
     @SerializedName("user_id")
     @Expose
     private String userId;
@@ -45,12 +46,24 @@ public class User {
     @SerializedName("user_pincode")
     @Expose
     private String userPincode;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("user_type")
+    @Expose
+    private String userType;
+    @SerializedName("wallet")
+    @Expose
+    private String wallet;
+    @SerializedName("date")
+    @Expose
+    private String date;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -150,4 +163,35 @@ public class User {
         this.userPincode = userPincode;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

@@ -5,11 +5,13 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -17,14 +19,10 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_main"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
 
         <service android:name=".services.MyFirebaseMessagingService">
             <intent-filter>
@@ -40,7 +38,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/app_name" />
-
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -55,7 +52,24 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
+        <service
+            android:name="com.mixpanel.android.mpmetrics.MixpanelFCMMessagingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <receiver
+            android:name="com.mixpanel.android.mpmetrics.InstallReferrerReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <meta-data
+            android:name="com.mixpanel.android.MPConfig.EnableDebugLogging"
+            android:value="true" />
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -68,11 +82,20 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ApartmentNameActivity" />
-        <activity android:name=".activity.AppActivity"></activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.PaymentActivity"
+            android:launchMode="singleTop"/>
+
+        <activity android:name=".activity.AppActivity" />
     </application>
 
 </manifest>

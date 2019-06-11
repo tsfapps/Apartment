@@ -6,9 +6,4 @@
         android:endColor="@color/red"
         android:startColor="@color/red"
         android:type="linear" />
-    <corners
-        android:radius="4dp"/>
-    <stroke
-        android:width=".5dp"
-        android:color="@color/black"/>
 </shape>

@@ -72,7 +72,7 @@ public class FragmentLaundry extends Fragment {
     @OnClick(R.id.btn_go_cart_laundry)
     public void btnGoCartClicked(View view){
 
-        tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCart()).addToBackStack(null).commit();
+        tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCartView()).addToBackStack(null).commit();
     }
     private void initFrag(){
         tContex = getContext();
@@ -92,7 +92,7 @@ public class FragmentLaundry extends Fragment {
         tActivity.uiThreadHandler.sendEmptyMessage(Constant.SHOW_PROGRESS_DIALOG);
         final String strUserId = tSharedPrefManager.getUserId();
         Api api = ApiClient.getApiClients().create(Api.class);
-        Call<List<ModelSubCat>> call = api.getSubCat("2");
+        Call<List<ModelSubCat>> call = api.getSubCat("2", strUserId);
         call.enqueue(new Callback<List<ModelSubCat>>() {
             @Override
             public void onResponse(Call<List<ModelSubCat>> call, Response<List<ModelSubCat>> response) {

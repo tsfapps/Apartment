@@ -29,12 +29,13 @@ public class SharedPrefManager {
     public void setBannerId(String id){
 
     }
-    public void setUserData(int intId, String strUserId, String strName, String strFlatNo, String strPhone, String strEmail,
+    public void setUserData( String strWallet, String strUserId, String strName, String strFlatNo, String strPhone, String strEmail,
                                   String strAdhar, String strApartment, String strArea, String strCity,
                                   String strState, String strPinNo) {
         SharedPreferences tSharedPreferences = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
         tEditor = tSharedPreferences.edit();
-        tEditor.putInt(Constant.ID, intId);
+       // tEditor.putInt(Constant.ID, intId);
+        tEditor.putString(Constant.USER_WALLET, strWallet);
         tEditor.putString(Constant.USER_ID, strUserId);
         tEditor.putString(Constant.USER_NAME, strName);
         tEditor.putString(Constant.USER_FLAT_NO, strFlatNo);
@@ -54,7 +55,9 @@ public class SharedPrefManager {
     public void clearUserData(){
         SharedPreferences tPref = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
         tEditor = tPref.edit();
-        tEditor.remove(Constant.ID);
+//        tEditor.remove(Constant.ID);
+
+        tEditor.remove(Constant.USER_WALLET);
         tEditor.remove(Constant.USER_ID);
         tEditor.remove(Constant.USER_NAME);
         tEditor.remove(Constant.USER_FLAT_NO);
@@ -69,10 +72,28 @@ public class SharedPrefManager {
         tEditor.apply();
         tEditor.clear();
     }
+    public void clearWallet(){
+        SharedPreferences sharedPreferences = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
+        tEditor = sharedPreferences.edit();
+        tEditor.remove(Constant.USER_WALLET);
+//        tEditor.clear();
+        tEditor.apply();
+    }
+
 
     public int getId(){
         SharedPreferences sp = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
        return sp.getInt(Constant.ID, -1);
+    }
+    public void setUserWallet(String strWallet){
+        SharedPreferences tSharedPreferences = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
+        tEditor = tSharedPreferences.edit();
+        tEditor.putString(Constant.USER_WALLET, strWallet);
+        tEditor.apply();
+    }
+    public String getUserWallet(){
+        SharedPreferences sp = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
+       return sp.getString(Constant.USER_WALLET, Constant.EMPTY);
     }
     public String getUserId(){
         SharedPreferences sp = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
@@ -120,10 +141,4 @@ public class SharedPrefManager {
        return sp.getString(Constant.USER_PIN_NO, Constant.EMPTY);
     }
 
-    public void clear(){
-        SharedPreferences sharedPreferences = tContext.getSharedPreferences(Constant.TSF_SHARED_PREFENCE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-    }
 }

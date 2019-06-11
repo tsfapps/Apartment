@@ -26,17 +26,21 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentCart extends Fragment {
+
+
+public class FragmentCartView extends Fragment {
 
     private Context tContext;
     private SharedPrefManager tSharedPrefManager;
     private FragmentManager tFragmentManager;
     private RecyclerView.LayoutManager tLayoutManager;
     private AdapterLaundryCartView tAdapter;
+
 
     @BindView(R.id.rv_cart)
     protected RecyclerView rvCart;
@@ -70,7 +74,7 @@ public class FragmentCart extends Fragment {
             @Override
             public void onResponse(Call<List<ModelCartView>> call, Response<List<ModelCartView>> response) {
                 List<ModelCartView> tModels = response.body();
-                tAdapter = new AdapterLaundryCartView(tContext, tModels, tFragmentManager, strUserId);
+                tAdapter = new AdapterLaundryCartView(tContext, tModels, tFragmentManager, strUserId, rvCart);
                 rvCart.setAdapter(tAdapter);
             }
             @Override
@@ -79,6 +83,11 @@ public class FragmentCart extends Fragment {
 
             }
         });
+    }
+
+    @OnClick(R.id.btn_cartViewCheckout)
+    public void clickedCheckout(View view){
+        tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCartCheckout()).addToBackStack(null).commit();
     }
 
 }
