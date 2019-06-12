@@ -1,6 +1,8 @@
 package com.myappartments.apartment.api;
 
 import com.myappartments.apartment.model.MainCatModel;
+import com.myappartments.apartment.model.ModelOrderCancel;
+import com.myappartments.apartment.model.ModelContact;
 import com.myappartments.apartment.model.ModelOrder;
 import com.myappartments.apartment.model.ModelOrderList;
 import com.myappartments.apartment.model.ModelWallet;
@@ -160,6 +162,16 @@ public interface Api {
     Call<List<ModelOrderList>> cartOrderList(
             @Field("user_id") String user_id
     );
+   @FormUrlEncoded
+   @POST("api/aprt_contact_us.php")
+   Call<ModelContact> contactUs(
+           @Field("user_id") String user_id,
+           @Field("feed_back") String feed_back );
+   @FormUrlEncoded
+   @POST("api/aprt_order_cancel.php")
+   Call<ModelOrderCancel> orderCancel(
+           @Field("user_id") String user_id,
+           @Field("id") String id );
 
 //PayTm Integration
 

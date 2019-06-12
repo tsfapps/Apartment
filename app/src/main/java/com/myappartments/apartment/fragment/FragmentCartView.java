@@ -11,10 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.activity.MainActivity;
-import com.myappartments.apartment.adapter.AdapterLaundryCartView;
+import com.myappartments.apartment.adapter.CartViewAdapter;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.cart.ModelCartView;
@@ -39,11 +40,14 @@ public class FragmentCartView extends Fragment {
     private SharedPrefManager tSharedPrefManager;
     private FragmentManager tFragmentManager;
     private RecyclerView.LayoutManager tLayoutManager;
-    private AdapterLaundryCartView tAdapter;
+    private CartViewAdapter tAdapter;
 
+    private MainActivity tActivity;
 
     @BindView(R.id.rv_cart)
     protected RecyclerView rvCart;
+    @BindView(R.id.ll_emptyCart)
+    protected LinearLayout ll_emptyCart;
 
     @Nullable
     @Override
@@ -58,7 +62,7 @@ public class FragmentCartView extends Fragment {
         tContext = getContext();
         tFragmentManager = getFragmentManager();
         tSharedPrefManager = new SharedPrefManager(tContext);
-        MainActivity tActivity = (MainActivity)getActivity();
+        tActivity = (MainActivity)getActivity();
         if (tActivity != null){
             tActivity.setTextToolbar("My Cart");
         }
@@ -67,6 +71,7 @@ public class FragmentCartView extends Fragment {
         callApi();
     }
     private void callApi(){
+        tActivity.uiThreadHandler.sendEmptyMessage(Constant.SHOW_PROGRESS_DIALOG);
         final String strUserId = tSharedPrefManager.getUserId();
         Api api = ApiClient.getApiClients().create(Api.class);
         Call<List<ModelCartView>> call = api.cartView(strUserId);
@@ -74,20 +79,35 @@ public class FragmentCartView extends Fragment {
             @Override
             public void onResponse(Call<List<ModelCartView>> call, Response<List<ModelCartView>> response) {
                 List<ModelCartView> tModels = response.body();
-                tAdapter = new AdapterLaundryCartView(tContext, tModels, tFragmentManager, strUserId, rvCart);
-                rvCart.setAdapter(tAdapter);
+                assert tModels != null;
+                CustomLog.d(Constant.TAG, "Cart Size : "+tModels.size());
+                if (tModels.size()==0){
+                    ll_emptyCart.setVisibility(View.VISIBLE);
+                    rvCart.setVisibility(View.GONE);
+                }
+                else {
+                    ll_emptyCart.setVisibility(View.GONE);
+                    rvCart.setVisibility(View.VISIBLE);
+                    tAdapter = new CartViewAdapter(tContext, tModels, tFragmentManager, strUserId, rvCart);
+                    rvCart.setAdapter(tAdapter);
+                    tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
+                }
             }
             @Override
             public void onFailure(Call<List<ModelCartView>> call, Throwable t) {
+                ll_emptyCart.setVisibility(View.VISIBLE);
+                rvCart.setVisibility(View.GONE);
                 CustomLog.d(Constant.TAG, "CartView not Responding : "+t);
-
+                tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
             }
         });
     }
-
     @OnClick(R.id.btn_cartViewCheckout)
     public void clickedCheckout(View view){
         tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCartCheckout()).addToBackStack(null).commit();
     }
-
+    @OnClick(R.id.btn_cartEmpty)
+    public void btn_cartEmptyClicked(View view){
+        tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentLaundry()).commit();
+    }
 }

@@ -1,7 +1,9 @@
 package com.myappartments.apartment.activity;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,6 +30,8 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
+import com.myappartments.apartment.fragment.FragmentCartView;
+import com.myappartments.apartment.fragment.FragmentContact;
 import com.myappartments.apartment.fragment.FragmentLaundry;
 import com.myappartments.apartment.fragment.FragmentMainCat;
 import com.myappartments.apartment.fragment.FragmentOrderList;
@@ -134,6 +139,8 @@ public class MainActivity extends AppCompatActivity
 
     public void onResponseApiWallet(Response<ModelWallet> response){
         ModelWallet tModel = response.body();
+        tSharedPrefManager.clearWallet();
+        tSharedPrefManager.setUserWallet(tModel.getWallet());
         tvToolbarWallet.setText(tModel.getWallet());
     }
     public void onFailureApiWallet(Call<ModelWallet> call){
@@ -184,28 +191,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_exit) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -217,24 +202,29 @@ public class MainActivity extends AppCompatActivity
 
            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentProfile()).addToBackStack(null).commit();
 
-        } else if (id == R.id.nav_water) {
-           // getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("1")).addToBackStack(null).commit();
-            CustomToast.tToastTop(this, "Service will start soon...");
-        } else if (id == R.id.nav_laundry) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentLaundry()).addToBackStack(null).commit();
-        } else if (id == R.id.nav_car) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("3")).addToBackStack(null).commit();
-            CustomToast.tToastTop(this, "Service will start soon...");
+        } else if (id == R.id.nav_wallet) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentWallet()).addToBackStack(null).commit();
+        } else if (id == R.id.nav_cart) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentCartView()).addToBackStack(null).commit();
+        } else if (id == R.id.nav_contact) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentContact()).addToBackStack(null).commit();
 
-        } else if (id == R.id.nav_fresh) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.container_main, FragmentSubCat.newInstance("4")).addToBackStack(null).commit();
-            CustomToast.tToastTop(this, "Service will start soon...");
-
+        } else if (id == R.id.nav_rate) {
+            try{
+                startActivity(new Intent("android.intent.action.VIEW", Uri.parse("market://details?id="+getPackageName())));
+            }
+            catch (ActivityNotFoundException e){
+                startActivity(new Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName())));
+            }
         }else if (id == R.id.nav_orders) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new FragmentOrderList()).addToBackStack(null).commit();
 
         } else if (id == R.id.nav_share) {
-
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Download our app and order for laundry service in few click...\n"+"https://play.google.com/store/apps/details?id="+getPackageName());
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
+            startActivity(Intent.createChooser(sharingIntent, "Share using"));
         } else if (id == R.id.nav_logout) {
 
             SharedPrefManager.getInstance(getApplicationContext()).clearUserData();

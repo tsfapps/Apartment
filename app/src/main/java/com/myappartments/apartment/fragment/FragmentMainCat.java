@@ -101,11 +101,10 @@ public class FragmentMainCat extends Fragment{
             public void onResponse(Call<List<ModelBanner>> call, Response<List<ModelBanner>> response) {
                 tBannerModels = response.body();
                 viewPager.setAdapter(new AdapterSlider(getContext(), tBannerModels));
-                CustomLog.e(Constant.TAG, "Slider Responding");
             }
             @Override
             public void onFailure(Call<List<ModelBanner>> call, Throwable t) {
-CustomLog.e(Constant.TAG, "Slider Error : "+ t);
+            CustomLog.e(Constant.TAG, "Slider Error : "+ t);
             }
         });
     }

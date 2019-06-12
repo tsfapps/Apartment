@@ -3,7 +3,9 @@
     android:elevation="22dp"
     android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools"
-   android:layout_margin="4dp"
+    android:layout_marginTop="@dimen/margin_top"
+    android:layout_marginEnd="@dimen/margin_top"
+    android:layout_marginStart="@dimen/margin_top"
     app:cardCornerRadius="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -170,26 +172,6 @@
                         style="@style/tv_cart_checkout"/>
 
             </LinearLayout>
-            <!--<LinearLayout-->
-                <!--android:orientation="vertical"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent">-->
-                <!--<TextView-->
-                    <!--android:hint="Total Price in ₹"-->
-                    <!--style="@style/tv_item_price"  />-->
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_cartCheckoutPrice_total"-->
-                    <!--style="@style/tv_item_price"  />-->
-                <!--<TextView-->
-                    <!--android:text="Total Quantity"-->
-                    <!--style="@style/tv_item_label" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_cartCheckoutCount_total"-->
-                    <!--style="@style/tv_cart_checkout"/>-->
-            <!--</LinearLayout>-->
         </LinearLayout>
     </LinearLayout>
 

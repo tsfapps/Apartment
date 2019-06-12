@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.myappartments.apartment.R;
+import com.myappartments.apartment.fragment.FragmentCartView;
 import com.myappartments.apartment.model.ModelCount;
 import com.myappartments.apartment.model.cart.ModelCartView;
 import com.myappartments.apartment.presenter.CartAddPresenter;
@@ -32,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryCartView.CartViewHolder> {
+public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.CartViewHolder> {
     private ModelCount tCount;
     private int countPress;
 
@@ -55,12 +56,12 @@ public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryC
     private String strMainCatId;
     private String strUserId;
     private CustomToast tToast;
-    private AdapterLaundryCartView tAdapter;
+    private CartViewAdapter tAdapter;
     private RecyclerView tRecyclerView;
 
 
-    public AdapterLaundryCartView(Context tContext, List<ModelCartView> tModels, FragmentManager tFragmentManager,
-                                  String strUserId, RecyclerView tRecyclerView) {
+    public CartViewAdapter(Context tContext, List<ModelCartView> tModels, FragmentManager tFragmentManager,
+                           String strUserId, RecyclerView tRecyclerView) {
         this.tContext = tContext;
         this.tModels = tModels;
         this.tFragmentManager = tFragmentManager;
@@ -103,6 +104,7 @@ public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryC
                         tRecyclerView.removeViewAt(i);
                         notifyItemRemoved(i);
                         notifyItemRangeChanged(i, tModels.size());
+                        tFragmentManager.beginTransaction().replace(R.id.container_main, new FragmentCartView()).addToBackStack(null).commit();
                     }
                 });
                 alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -165,9 +167,14 @@ public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryC
         final int priceDryReal;
 
 
+        if (strPricePressReal.contains("NA")) {
+            strPricePressReal = "0";
+            DisableView.disableTextView(cartViewHolder.tv_cart_price_press);
+            DisableView.disableSpinner(cartViewHolder.spn_count_press_cart);
+        }
         pricePressReal = Integer.parseInt(strPricePressReal);
 
-        if (strPriceWashReal.equals("NA")) {
+        if (strPriceWashReal.contains("NA")) {
             strPriceWashReal = "0";
             DisableView.disableTextView(cartViewHolder.tv_cart_price_wash);
             DisableView.disableSpinner(cartViewHolder.spn_count_wash_cart);
@@ -175,7 +182,7 @@ public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryC
         priceWashReal = Integer.parseInt(strPriceWashReal);
 
 
-        if (strPriceDryReal.equals("NA")) {
+        if (strPriceDryReal.contains("NA")) {
             strPriceDryReal = "0";
             DisableView.disableTextView(cartViewHolder.tv_cart_price_dry);
             DisableView.disableSpinner(cartViewHolder.spn_count_dry_cart);
@@ -183,10 +190,13 @@ public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryC
             priceDryReal = Integer.parseInt(strPriceDryReal);
 
 
-        if (cartViewHolder.tv_cart_price_wash.getText().equals("Na")){
+        if ("Na".contains(cartViewHolder.tv_cart_price_press.getText())){
+            cartViewHolder.tv_cart_price_press.setText("0");
+        }
+        if ("Na".contains(cartViewHolder.tv_cart_price_wash.getText())){
             cartViewHolder.tv_cart_price_wash.setText("0");
         }
-        if (cartViewHolder.tv_cart_price_dry.getText().equals("Na")){
+        if ("Na".contains(cartViewHolder.tv_cart_price_dry.getText())){
             cartViewHolder.tv_cart_price_dry.setText("0");
         }
         cartViewHolder.spn_count_press_cart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -274,10 +284,10 @@ public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryC
                 // your code here
             }
         });
-        cartViewHolder.iv_cart_update.setOnClickListener(new View.OnClickListener() {
+        cartViewHolder.tv_cart_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnimationCustom.animRotate(cartViewHolder.iv_cart_update);
+                AnimationCustom.animRotate(cartViewHolder.tv_cart_update);
                 String strCountPress = cartViewHolder.tv_spinnerValuePress.getText().toString();
                 String strCountWash = cartViewHolder.tv_spinnerValueWash.getText().toString();
                 String strCountDry = cartViewHolder.tv_spinnerValueDry.getText().toString();
@@ -330,8 +340,8 @@ public class AdapterLaundryCartView extends RecyclerView.Adapter<AdapterLaundryC
 
         @BindView(R.id.iv_cart_delete)
         protected ImageView iv_cart_delete;
-        @BindView(R.id.iv_cart_update)
-        protected ImageView iv_cart_update;
+        @BindView(R.id.tv_cart_update)
+        protected TextView tv_cart_update;
 
         CartViewHolder(@NonNull View itemView) {
             super(itemView);

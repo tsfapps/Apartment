@@ -4,9 +4,10 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class AnimationCustom {
-    public static void animRotate(ImageView tImageView){
+    public static void animRotate(TextView tImageView){
         RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         anim.setInterpolator(new LinearInterpolator());
         anim.setRepeatCount(Animation.RELATIVE_TO_SELF);

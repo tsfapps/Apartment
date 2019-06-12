@@ -64,8 +64,15 @@ public class FragmentWallet extends Fragment {
     protected TextView tv_wallet_amount;
     @BindView(R.id.et_adding_amount)
     protected EditText et_adding_amount;
+    @BindView(R.id.tv_wallet100)
+    protected TextView tv_wallet100;
+    @BindView(R.id.tv_wallet200)
+    protected TextView tv_wallet200;
+    @BindView(R.id.tv_wallet500)
+    protected TextView tv_wallet500;
     @BindView(R.id.btn_addAmount)
     protected Button btn_addAmount;
+
 
     @Nullable
     @Override
@@ -96,16 +103,27 @@ public class FragmentWallet extends Fragment {
         mWebsite = "DEFAULT";
         mCallBackUrl = "https://securegw.paytm.in/theia/paytmCallback?ORDER_ID="+mOrderId;
         updateWalletAmount();
-//        btn_addAmount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//                }
-//        });
-
     }
 
+    @OnClick(R.id.tv_wallet100)
+    public void tv_wallet100Clicked(View view){
+         et_adding_amount.setText("100");
+    }
+    @OnClick(R.id.tv_wallet200)
+    public void tv_wallet200Clicked(View view){
+        et_adding_amount.setText("200");
+    }
+    @OnClick(R.id.tv_wallet500)
+    public void tv_wallet500Clicked(View view){
+        et_adding_amount.setText("500");
+    }
+    @OnClick(R.id.tv_walletCustom)
+    public void tv_walletCustomClicked(View view){
+        et_adding_amount.setEnabled(true);
+        et_adding_amount.setText("");
+        et_adding_amount.setBackgroundResource(R.drawable.bg_et);
+
+    }
     @OnClick(R.id.btn_addAmount)
     public void clickBtnAddAmount(View view){
         mAmount = et_adding_amount.getText().toString().trim();

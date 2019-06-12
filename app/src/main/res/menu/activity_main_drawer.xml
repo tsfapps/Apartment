@@ -9,38 +9,44 @@
             android:icon="@drawable/ic_pro_user"
             android:title="@string/profile" />
         <item
-            android:id="@+id/nav_water"
-            android:icon="@drawable/ic_pro_water"
-            android:title="@string/mineral_water" />
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_wallet_black"
+            android:title="My Wallet" />
         <item
-            android:id="@+id/nav_laundry"
-            android:icon="@drawable/ic_pro_laundry"
-            android:title="@string/my_laundry" />
-        <item
-            android:id="@+id/nav_car"
-            android:icon="@drawable/ic_pro_car_wash"
-            android:title="@string/car_wash" />
-        <item
-            android:id="@+id/nav_fresh"
-            android:icon="@drawable/ic_pro_fresh"
-            android:title="@string/daily_fresh" />
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_pro_cart"
+            android:title="My Cart" />
         <item
             android:id="@+id/nav_orders"
             android:icon="@drawable/ic_pro_orders"
             android:title="@string/my_orders" />
+
+
     </group>
 
     <item android:title="@string/communicate">
         <menu>
             <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_contact"
+                android:title="Contact Us" />
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_rate"
+                android:title="Rate Us" />
+            <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/share" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_pro_logout"
-                android:title="@string/logout" />
         </menu>
     </item>
 
+    <item android:title="Application">
+        <menu>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_pro_logout"
+        android:title="@string/logout" />
+        </menu>
+    </item>
 </menu>

@@ -54,7 +54,9 @@ public class AdapterMainCat extends RecyclerView.Adapter<AdapterMainCat.MainCatV
                     case 0:
                     tFragmentManager.beginTransaction().replace(R.id.container_main, FragmentLaundry.newInstance(tModel.getId().toString())).addToBackStack(null).commit();
                     break;
-                    case 5:
+                    case 1:
+                    tFragmentManager.beginTransaction().replace(R.id.container_main, new FragSmartApp()).addToBackStack(null).commit();
+                    break; case 5:
                     tFragmentManager.beginTransaction().replace(R.id.container_main, new FragSmartApp()).addToBackStack(null).commit();
                     break;
                     default:

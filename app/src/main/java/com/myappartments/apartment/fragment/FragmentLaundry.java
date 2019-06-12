@@ -63,12 +63,9 @@ public class FragmentLaundry extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_laundry, container, false);
         ButterKnife.bind(this, view);
-
-       // callApiLaundry();
         initFrag();
         return view;
     }
-
     @OnClick(R.id.btn_go_cart_laundry)
     public void btnGoCartClicked(View view){
 
@@ -84,7 +81,6 @@ public class FragmentLaundry extends Fragment {
         if (tActivity != null){
             tActivity.setTextToolbar("My Laundry");
         }
-       // new CallApiAsyncTask(tActivity).execute();
         callApiLaundry();
 
     }
@@ -100,7 +96,6 @@ public class FragmentLaundry extends Fragment {
                 tAdapter = new AdapterLaundry(tContex, tModels, tFragmentManager, tCount, strMainCatId, strUserId);
                 tRecyclerView.setAdapter(tAdapter);
                 tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
-
             }
             @Override
             public void onFailure(Call<List<ModelSubCat>> call, Throwable t) {
@@ -110,29 +105,4 @@ public class FragmentLaundry extends Fragment {
         });
     }
 
-    private class CallApiAsyncTask extends AsyncTask<Void, Void, Void> {
-        private MainActivity tActivity;
-
-
-        public CallApiAsyncTask(MainActivity tActivity) {
-            this.tActivity = tActivity;
-        }
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-                  }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            // tDialog.cancel();
-        }
-    }
 }

@@ -84,7 +84,7 @@ public class ModelSubCat {
         this.price = price;
     }
 
-    public String getPriceSteamPress() {
+    public String  getPriceSteamPress() {
         return priceSteamPress;
     }
 

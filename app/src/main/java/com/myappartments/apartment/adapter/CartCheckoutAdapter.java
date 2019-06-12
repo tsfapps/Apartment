@@ -2,18 +2,13 @@ package com.myappartments.apartment.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,17 +16,14 @@ import com.bumptech.glide.request.RequestOptions;
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.model.ModelCount;
 import com.myappartments.apartment.model.cart.ModelCartView;
-import com.myappartments.apartment.presenter.CartViewPresenter;
 import com.myappartments.apartment.utils.CustomToast;
-import com.myappartments.apartment.utils.DisableView;
-import com.myappartments.apartment.utils.SetSpinnerValue;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AdapterLaundryCartCheckout extends RecyclerView.Adapter<AdapterLaundryCartCheckout.CartCheckoutHolder> {
+public class CartCheckoutAdapter extends RecyclerView.Adapter<CartCheckoutAdapter.CartCheckoutHolder> {
     private ModelCount tCount;
     private int countPress;
 
@@ -54,12 +46,12 @@ public class AdapterLaundryCartCheckout extends RecyclerView.Adapter<AdapterLaun
     private String strMainCatId;
     private String strUserId;
     private CustomToast tToast;
-    private AdapterLaundryCartCheckout tAdapter;
+    private CartCheckoutAdapter tAdapter;
     private RecyclerView tRecyclerView;
 
 
-    public AdapterLaundryCartCheckout(Context tContext, List<ModelCartView> tModels, FragmentManager tFragmentManager,
-                                      String strUserId, RecyclerView tRecyclerView) {
+    public CartCheckoutAdapter(Context tContext, List<ModelCartView> tModels, FragmentManager tFragmentManager,
+                               String strUserId, RecyclerView tRecyclerView) {
         this.tContext = tContext;
         this.tModels = tModels;
         this.tFragmentManager = tFragmentManager;
@@ -119,34 +111,36 @@ public class AdapterLaundryCartCheckout extends RecyclerView.Adapter<AdapterLaun
         countWash = Integer.parseInt(tModel.getWashQuantity());
         countDry = Integer.parseInt(tModel.getDryQuantity());
 
-        String strPricePressReal = tModel.getPriceSteamPress();
-        String strPriceWashReal = tModel.getPriceWashing();
-        String strPriceDryReal = tModel.getPriceDryCleaning();
+//        String strPricePressReal = tModel.getPriceSteamPress();
+//        String strPriceWashReal = tModel.getPriceWashing();
+//        String strPriceDryReal = tModel.getPriceDryCleaning();
 
-        final int pricePressReal;
-        final int priceWashReal;
-        final int priceDryReal;
+//        final int pricePressReal;
+//        final int priceWashReal;
+//        final int priceDryReal;
+//
+//        if (strPricePressReal.contains("NA")) {
+//            strPriceWashReal = "0";
+//
+//        }
+//
+//        if (strPriceWashReal.contains("NA")) {
+//            strPriceWashReal = "0";
+//
+//        }
+//
+//
+//        if (strPriceDryReal.contains("NA")) {
+//            strPriceDryReal = "0";
+//        }
 
-
-        pricePressReal = Integer.parseInt(strPricePressReal);
-
-        if (strPriceWashReal.equals("NA")) {
-            strPriceWashReal = "0";
-
+        if ("Na".contains(cartCheckoutHolder.tv_cartCheckoutPrice_press.getText())){
+            cartCheckoutHolder.tv_cartCheckoutPrice_press.setText("0");
         }
-        priceWashReal = Integer.parseInt(strPriceWashReal);
-
-
-        if (strPriceDryReal.equals("NA")) {
-            strPriceDryReal = "0";
-        }
-            priceDryReal = Integer.parseInt(strPriceDryReal);
-
-
-        if (cartCheckoutHolder.tv_cartCheckoutPrice_wash.getText().equals("Na")){
+        if ("Na".contains(cartCheckoutHolder.tv_cartCheckoutPrice_wash.getText())){
             cartCheckoutHolder.tv_cartCheckoutPrice_wash.setText("0");
         }
-        if (cartCheckoutHolder.tv_cartCheckoutPrice_dry.getText().equals("Na")){
+        if ("Na".contains(cartCheckoutHolder.tv_cartCheckoutPrice_dry.getText())){
             cartCheckoutHolder.tv_cartCheckoutPrice_dry.setText("0");
         } 
 

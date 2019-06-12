@@ -17,8 +17,7 @@ import android.widget.Button;
 import com.myappartments.apartment.R;
 import com.myappartments.apartment.activity.MainActivity;
 import com.myappartments.apartment.activity.PaymentActivity;
-import com.myappartments.apartment.adapter.AdapterLaundryCartCheckout;
-import com.myappartments.apartment.adapter.AdapterLaundryCartView;
+import com.myappartments.apartment.adapter.CartCheckoutAdapter;
 import com.myappartments.apartment.api.Api;
 import com.myappartments.apartment.api.ApiClient;
 import com.myappartments.apartment.model.cart.ModelCartView;
@@ -30,7 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +40,7 @@ public class FragmentCartCheckout extends Fragment {
     private SharedPrefManager tSharedPrefManager;
     private FragmentManager tFragmentManager;
     private RecyclerView.LayoutManager tLayoutManager;
-    private AdapterLaundryCartCheckout tAdapter;
+    private CartCheckoutAdapter tAdapter;
 
 
     @BindView(R.id.rv_cartCheckout)
@@ -104,7 +102,7 @@ public class FragmentCartCheckout extends Fragment {
                     }
                 });
 
-                tAdapter = new AdapterLaundryCartCheckout(tContext, tModels, tFragmentManager, strUserId, rv_cartCheckout);
+                tAdapter = new CartCheckoutAdapter(tContext, tModels, tFragmentManager, strUserId, rv_cartCheckout);
                 rv_cartCheckout.setAdapter(tAdapter);
             }
             @Override

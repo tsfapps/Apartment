@@ -49,6 +49,7 @@ public class FragmentSubCat extends Fragment {
     private List<ModelSubCat> tModelSubCats;
     private AdapterSubCat tAdapterSubCat;
     private FragmentManager tFragmentManager;
+    private MainActivity tActivity;
     @BindView(R.id.vp_water)
     protected ViewPager vpWater;
     @BindView(R.id.rv_water)
@@ -80,7 +81,7 @@ public class FragmentSubCat extends Fragment {
     private void setTitle(){
         tContext = getContext();
         tSharedPrefManager = new SharedPrefManager(tContext);
-        MainActivity tActivity = (MainActivity) getActivity();
+         tActivity = (MainActivity) getActivity();
         if (tActivity != null){
             switch (mainCatId){
                 case "1":
@@ -100,6 +101,7 @@ public class FragmentSubCat extends Fragment {
     }
     private void callApiSubCat(){
         try {
+            tActivity.uiThreadHandler.sendEmptyMessage(Constant.SHOW_PROGRESS_DIALOG);
             String strUserId = tSharedPrefManager.getUserId();
             Api api = ApiClient.getApiClients().create(Api.class);
             Call<List<ModelSubCat>> call = api.getSubCat(mainCatId, strUserId);
@@ -109,11 +111,14 @@ public class FragmentSubCat extends Fragment {
                     tModelSubCats = response.body();
                     tAdapterSubCat = new AdapterSubCat(getContext(), tModelSubCats, tFragmentManager);
                     rvWater.setAdapter(tAdapterSubCat);
+                    tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
                 }
 
                 @Override
                 public void onFailure(Call<List<ModelSubCat>> call, Throwable t) {
                     CustomLog.e(Constant.TAG, "Sub Category not Responding ... ");
+                    tActivity.uiThreadHandler.sendMessageDelayed(tActivity.uiThreadHandler.obtainMessage(Constant.HIDE_PROGRESS_DIALOG),Constant.HIDE_PROGRESS_DIALOG_DELAY);
+
 
                 }
             });

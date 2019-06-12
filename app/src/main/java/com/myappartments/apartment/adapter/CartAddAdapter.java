@@ -23,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AdapterLaundryCartAdd extends RecyclerView.Adapter<AdapterLaundryCartAdd.LaundryHolder> {
+public class CartAddAdapter extends RecyclerView.Adapter<CartAddAdapter.LaundryHolder> {
     private ModelCount tCount;
     private Context tContext;
     private List<ModelSubCat> tModels;
@@ -34,8 +34,8 @@ public class AdapterLaundryCartAdd extends RecyclerView.Adapter<AdapterLaundryCa
     private CustomToast tToast;
 
 
-    public AdapterLaundryCartAdd(Context tContext, List<ModelSubCat> tModels, FragmentManager tFragmentManager,
-                                 ModelCount tCount, String strMainCatId, String strUserId) {
+    public CartAddAdapter(Context tContext, List<ModelSubCat> tModels, FragmentManager tFragmentManager,
+                          ModelCount tCount, String strMainCatId, String strUserId) {
         this.tContext = tContext;
         this.tModels = tModels;
         this.tFragmentManager = tFragmentManager;

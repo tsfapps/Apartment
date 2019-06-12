@@ -38,33 +38,7 @@ import retrofit2.Response;
 
 public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryHolder> {
     private ModelCount tCount;
-    private int countSmallPress = 0;
-    private int countMediumPress = 0;
-    private int countLargePress = 0;
-    private int countExtraPress = 0;
-    private int totalPressSmall;
-    private int totalPressMedium;
-    private int totalPressLarge;
-    private int totalPressExtra;
-    private int grandTotalSmall;
-    private int grandTotal = 0;
-    private int grandTotalMedium = 0;
-    private int grandTotalLarge = 0;
-    private int grandTotalExtra = 0;
-    private int countMediumWash = 0;
-    private int countLargeWash = 0;
-    private int countExtraWash = 0;
-    private int totalWashMedium;
-    private int totalWashLarge;
-    private int totalWashExtra;
-    private int countMediumDry = 0;
-    private int countLargeDry = 0;
-    private int countExtraDry = 0;
-    private int totalDryMedium;
-    private int totalDryLarge;
-    private int totalDryExtra;
-    private int countTotalPrice;
-    private int countTotalQuantity;
+
     private Context tContext;
     private List<ModelSubCat> tModels;
     private List<ModelDescription> tDescriptions;
@@ -125,26 +99,27 @@ public class AdapterLaundry extends RecyclerView.Adapter<AdapterLaundry.LaundryH
         String strPriceWash = tModel.getPriceWashing();
         String strPriceDry = tModel.getPriceDryCleaning();
 
-
         laundryHolder.tvLaundryName.setText(tModel.getCategoryName());
         laundryHolder.tvLaundryPressPrice.setText("₹ "+strPricePress);
         laundryHolder.tvLaundryWashPrice.setText("₹ "+strPriceWash);
         laundryHolder.tvLaundryDryPrice.setText("₹ "+strPriceDry);
 
+        if (strPricePress.contains("NA")) {
+            strPricePress = "0";
+            DisableView.disableEditText(laundryHolder.et_count_laundry_wash);
+        }
         final int getPresPrice = Integer.valueOf(strPricePress);
-        if (strPriceWash.equals("NA")) {
+        if (strPriceWash.contains("NA")) {
             strPriceWash = "0";
             DisableView.disableEditText(laundryHolder.et_count_laundry_wash);
         }
         final int getWashPrice = Integer.parseInt(strPriceWash);
-        if (strPriceDry.equals("NA")) {
+        if (strPriceDry.contains("NA")) {
             strPriceDry = "0";
             DisableView.disableEditText(laundryHolder.et_count_laundry_dry);
         }
         final int getDryPrice = Integer.parseInt(strPriceDry);
         Glide.with(tContext).load(tModel.getCategoryImage()).into(laundryHolder.ivLaundry);
-
-
 
         laundryHolder.btn_add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
