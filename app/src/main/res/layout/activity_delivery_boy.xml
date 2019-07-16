@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DeliveryBoyActivity">
+
+    <TextView
+        android:id="@+id/tvDbName"
+        style="@style/tv_label"
+        android:textSize="26sp"
+        android:padding="32dp"
+        android:textColor="@color/colorPrimary"
+        android:text="Delivery Boy Name" />
+    <TextView
+        android:layout_marginTop="32dp"
+        style="@style/tv_label"
+        android:gravity="start"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/select_apartment" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvDbApartList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            style="@style/tv_label"
+            android:gravity="start"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/select_flat_no" />
+
+        <RelativeLayout
+            style="@style/rl_spinner_main">
+
+            <Spinner
+                android:id="@+id/spn_db_flats"
+                style="@style/spinner_main" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_down" />
+        </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llDbOrders"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/tv_label"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/select_service" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+    android:layout_margin="@dimen/margin_top"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:background="@drawable/bg_btn_main_db"
+                android:scaleType="fitXY"
+                android:id="@+id/ivDbMyOrder"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_pro_orders" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="My Order"
+            android:background="@drawable/bg_primary"
+            android:layout_marginTop="@dimen/margin_top"
+            android:paddingEnd="@dimen/margin_top"
+            android:paddingStart="@dimen/margin_top"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+</LinearLayout>
+<LinearLayout
+    android:layout_margin="@dimen/margin_top"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:background="@drawable/bg_btn_main_db"
+                android:scaleType="fitXY"
+                android:id="@+id/ivDbNewOrder"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_pro_add_cart" />
+
+
+        <TextView
+            android:background="@drawable/bg_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/margin_top"
+            android:paddingEnd="@dimen/margin_top"
+            android:paddingStart="@dimen/margin_top"
+            android:text="New Order"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+</LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

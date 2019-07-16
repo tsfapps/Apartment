@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.myappartments.apartment">
+    package="com.myappartments.laundry">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,63 +16,24 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo_main"
+        android:icon="@mipmap/logo_512x512"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo_main"
+        android:roundIcon="@mipmap/logo_512x512"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+        tools:replace="android:icon">
+        <activity android:name="com.myappartments.laundry.activity.DeliveryBoyActivity"/>
 
-
-        <service android:name=".services.MyFirebaseMessagingService">
+        <service android:name=".services.MyFirebaseMessagingService"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".services.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/app_name" />
-        <!--
-     Set custom default icon. This is used when no icon is set for incoming notification messages.
-     See README(https://goo.gl/l4GJaQ) for more.
-        -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_foreground" />
-        <!--
-             Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more.
-        -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-        <service
-            android:name="com.mixpanel.android.mpmetrics.MixpanelFCMMessagingService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
-        <receiver
-            android:name="com.mixpanel.android.mpmetrics.InstallReferrerReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-        <meta-data
-            android:name="com.mixpanel.android.MPConfig.EnableDebugLogging"
-            android:value="true" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.myappartments.laundry.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,22 +42,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.myappartments.laundry.activity.LoginActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="com.myappartments.laundry.activity.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ApartmentNameActivity" />
+        <activity android:name="com.myappartments.laundry.activity.ApartmentNameActivity" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.myappartments.laundry.activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.PaymentActivity"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".activity.AppActivity" />
+        <activity
+            android:name="com.myappartments.laundry.activity.PaymentActivity"
+            android:launchMode="singleTop" />
+        <activity android:name="com.myappartments.laundry.activity.AppActivity" />
     </application>
 
 </manifest>

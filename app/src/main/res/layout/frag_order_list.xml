@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:orientation="vertical"
+    android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/light_grey"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_emptyOrderList"
+        android:layout_margin="@dimen/margin_top"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/ic_pro_add_cart"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
+        <Button
+            android:id="@+id/btn_orderListEmpty"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="Continue to Shopping"
+            android:background="@drawable/bg_btn_main"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshOrderList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_orderList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

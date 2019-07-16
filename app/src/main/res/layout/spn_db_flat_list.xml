@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="4dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_btn_main_db"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <TextView
+        android:id="@+id/tv_dbFlatNoList"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_home"
+        android:drawableTint="@color/colorPrimary"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/margin_top"
+        android:text=" 512"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        tools:ignore="UnusedAttribute" />
+    <TextView
+        android:id="@+id/tv_dbFlatPersonName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="50dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        android:text="Tousif Akram"
+        android:textColor="@color/colorPrimary"/>
+    <TextView
+        android:id="@+id/tv_dbFlatPhoneNo"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="50dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        android:text="9709080680"
+        android:textColor="@color/colorPrimary"/>
+</LinearLayout>

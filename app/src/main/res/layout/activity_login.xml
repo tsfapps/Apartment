@@ -34,12 +34,14 @@
             android:id="@+id/et_login_phone_no"
             android:drawableStart="@drawable/ic_pro_phone"
             style="@style/et_login"
+            android:inputType="phone"
+            android:maxLength="10"
             android:hint="Phone Number"
             />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         app:passwordToggleEnabled="true"
-        app:passwordToggleDrawable="@drawable/ic_pass_show"
+        app:passwordToggleTint="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <EditText

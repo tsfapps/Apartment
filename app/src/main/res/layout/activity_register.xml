@@ -31,6 +31,22 @@
                 android:hint="Full Name*"
                 />
         </android.support.design.widget.TextInputLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/margin_top"
+            style="@style/rl_spinner_main">
+            <Spinner
+                android:id="@+id/spn_apartmentName"
+                style="@style/spinner_main" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_down"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -81,11 +97,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-        <EditText
-            android:drawableLeft="@drawable/ic_apartment"
-            android:id="@+id/et_apartmentName"
-            style="@style/et_login"
-            android:hint="Enter Apartment Name"/>
+
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -130,7 +142,7 @@
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/ic_pass_show"
+            app:passwordToggleTint="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <EditText
@@ -143,7 +155,7 @@
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/ic_pass_show"
+            app:passwordToggleTint="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <EditText

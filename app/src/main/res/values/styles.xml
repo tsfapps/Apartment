@@ -80,10 +80,36 @@
 
 
     </style>
-    <style name="spinner_main">
-        <item name="android:background">@android:drawable/btn_dropdown</item>
-        <item name="android:layout_height">40dp</item>
+    <style name="tv_label">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/margin_top</item>
+        <item name="android:textColor">@color/white</item>
+
+
+    </style>
+    <style name="rl_spinner_main">
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/bg_btn_main_db</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
+    <style name="spinner_main">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <!--<style name="spinner_main">-->
+        <!--<item name="android:background">@android:drawable/btn_dropdown</item>-->
+        <!--<item name="android:layout_height">40dp</item>-->
+        <!--<item name="android:layout_width">match_parent</item>-->
+    <!--</style>-->
 
 </resources>

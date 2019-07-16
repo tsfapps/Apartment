@@ -8,9 +8,9 @@
         android:visibility="gone"
         android:id="@+id/ll_emptyCart"
         android:layout_margin="@dimen/margin_top"
-        android:gravity="center"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/ic_pro_add_cart"
@@ -22,11 +22,15 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:text="Cart is empty Continue to Shopping"
+            android:text="Continue to Shopping"
             android:background="@drawable/bg_btn_main"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshCartView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_cart"
@@ -34,6 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 <Button
     android:id="@+id/btn_cartViewCheckout"
     android:background="@color/colorPrimary"
